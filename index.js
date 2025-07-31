@@ -2796,7 +2796,7 @@ function onShowCurrentSelectedOptions() {
 
 function onUseDefaultSettingsOnlyChange(event) {
     // 기본옵션 사용 기능 완전 중단 (스마트 자동저장으로 대체)
-    toastr.warning('이 기능은 스마트 자동저장으로 대체되어 더 이상 사용되지 않습니다.');
+    //toastr.warning('이 기능은 스마트 자동저장으로 대체되어 더 이상 사용되지 않습니다.');
     console.log('ThemePresetManager: 기본옵션 사용 기능 중단됨 - 스마트 자동저장으로 대체');
     return;
 }
