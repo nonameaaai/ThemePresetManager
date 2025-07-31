@@ -1,0 +1,347 @@
+/* ThemePresetManager 확장 스타일 */
+
+.ThemePresetManager-extension-settings {
+    margin: 10px 0;
+}
+
+.ThemePresetManager-extension_block {
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid var(--SmartThemeBorderColor);
+    border-radius: 5px;
+    background-color: var(--SmartThemeBlurColor);
+}
+
+.ThemePresetManager-extension_block.flex-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.ThemePresetManager-extension_block label {
+    font-weight: bold;
+    color: var(--SmartThemeBodyColor);
+}
+
+.ThemePresetManager-extension_block input[type="checkbox"] {
+    margin-right: 5px;
+}
+
+.ThemePresetManager-extension_block input[type="text"] {
+    padding: 8px;
+    border: 1px solid var(--SmartThemeBorderColor);
+    border-radius: 3px;
+    background-color: var(--SmartThemeBlurColor);
+    color: var(--SmartThemeBodyColor);
+    font-size: 14px;
+}
+
+.ThemePresetManager-extension_block input[type="text"]:focus {
+    outline: none;
+    border-color: var(--SmartThemeBorderColor);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.ThemePresetManager-extension_block select {
+    padding: 8px;
+    border: 1px solid var(--SmartThemeBorderColor);
+    border-radius: 3px;
+    background-color: var(--SmartThemeBlurColor);
+    color: var(--SmartThemeBodyColor);
+    font-size: 14px;
+    min-width: 200px;
+}
+
+.ThemePresetManager-extension_block select:focus {
+    outline: none;
+    border-color: var(--SmartThemeBorderColor);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.ThemePresetManager-extension_block button {
+    margin: 5px;
+    padding: 8px 15px;
+    border: 1px solid var(--SmartThemeBorderColor);
+    border-radius: 5px;
+    background-color: var(--SmartThemeBlurColor);
+    color: var(--SmartThemeBodyColor);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 14px;
+    white-space: nowrap;
+}
+
+.ThemePresetManager-extension_block button:hover {
+    background-color: var(--SmartThemeBorderColor);
+    transform: translateY(-1px);
+}
+
+.ThemePresetManager-extension_block button:active {
+    transform: translateY(0);
+}
+
+/* 자동저장슬롯 버튼 상태 스타일 */
+.ThemePresetManager-extension_block button.enabled-button {
+    background-color: var(--SmartThemeBlurColor);
+    color: var(--SmartThemeBodyColor);
+    cursor: pointer;
+    opacity: 1;
+}
+
+.ThemePresetManager-extension_block button.disabled-button {
+    background-color: #666;
+    color: #999;
+    cursor: not-allowed;
+    opacity: 0.6;
+    border-color: #555;
+}
+
+.ThemePresetManager-extension_block button.disabled-button:hover {
+    background-color: #666;
+    transform: none;
+    box-shadow: none;
+}
+
+/* 자동저장슬롯 버튼별 색상 */
+#ThemePresetManager_restoreFromAutoSlot.enabled-button {
+    background-color: #ff9800;
+    color: white;
+}
+
+#ThemePresetManager_restoreFromAutoSlot.enabled-button:hover {
+    background-color: #f57c00;
+}
+
+#ThemePresetManager_overwriteAutoSlot.enabled-button {
+    background-color: #2196f3;
+    color: white;
+}
+
+#ThemePresetManager_overwriteAutoSlot.enabled-button:hover {
+    background-color: #1976d2;
+}
+
+#ThemePresetManager_deleteAutoSlot.enabled-button {
+    background-color: #d32f2f;
+    color: white;
+}
+
+#ThemePresetManager_deleteAutoSlot.enabled-button:hover {
+    background-color: #b71c1c;
+}
+
+.ThemePresetManager-extension_block h4 {
+    margin: 0 0 10px 0;
+    color: var(--SmartThemeBodyColor);
+    border-bottom: 1px solid var(--SmartThemeBorderColor);
+    padding-bottom: 5px;
+}
+
+/* 수동 저장/로드 섹션 스타일 */
+.ThemePresetManager-extension_block .flex-container {
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.ThemePresetManager-extension_block .flex-container input[type="text"] {
+    flex: 1;
+    min-width: 150px;
+}
+
+.ThemePresetManager-extension_block .flex-container select {
+    flex: 1;
+    min-width: 200px;
+}
+
+.ThemePresetManager-extension_block .flex-container button {
+    flex-shrink: 0;
+}
+
+/* 프리셋 정보 표시 스타일 */
+#ThemePresetManager_presetInfo {
+    padding: 8px;
+    background-color: var(--SmartThemeBlurColor);
+    border: 1px solid var(--SmartThemeBorderColor);
+    border-radius: 3px;
+    margin-top: 8px;
+    font-size: 0.9em;
+    color: var(--SmartThemeBodyColor);
+    opacity: 0.8;
+}
+
+/* 프리셋 목록 스타일 */
+#ThemePresetManager_presetList {
+    max-height: 300px;
+    overflow-y: auto;
+    border: 1px solid var(--SmartThemeBorderColor);
+    border-radius: 5px;
+    padding: 10px;
+    background-color: var(--SmartThemeBlurColor);
+}
+
+.preset-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px;
+    margin: 5px 0;
+    border: 1px solid var(--SmartThemeBorderColor);
+    border-radius: 3px;
+    background-color: var(--SmartThemeBlurColor);
+}
+
+.preset-item:hover {
+    background-color: var(--SmartThemeBorderColor);
+}
+
+.preset-info {
+    flex: 1;
+}
+
+.preset-name {
+    font-weight: bold;
+    color: var(--SmartThemeBodyColor);
+}
+
+.preset-details {
+    font-size: 0.8em;
+    color: var(--SmartThemeBodyColor);
+    opacity: 0.7;
+}
+
+.preset-actions {
+    display: flex;
+    gap: 5px;
+}
+
+.preset-actions button {
+    padding: 4px 8px;
+    font-size: 0.8em;
+    margin: 0;
+}
+
+/* 상태 표시 스타일 */
+.status-display {
+    margin: 8px 0;
+    padding: 12px;
+    border: 1px solid var(--SmartThemeBorderColor);
+    border-radius: 8px;
+    font-size: 0.9em;
+    line-height: 1.4;
+    background-color: var(--SmartThemeBlurColor);
+    color: var(--SmartThemeBodyColor);
+}
+
+.status-indicator {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 5px;
+}
+
+.status-enabled {
+    background-color: #4CAF50;
+}
+
+.status-disabled {
+    background-color: #f44336;
+}
+
+/* 드롭다운 옵션 스타일 */
+#ThemePresetManager_loadDropdown option {
+    padding: 5px;
+    background-color: var(--SmartThemeBlurColor);
+    color: var(--SmartThemeBodyColor);
+}
+
+/* 상세설정 패널 스타일 */
+.settings-section {
+    margin-bottom: 20px;
+}
+
+.settings-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.setting-item {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    border: 1px solid var(--SmartThemeBorderColor);
+    border-radius: 4px;
+    background-color: var(--SmartThemeBlurColor);
+    transition: background-color 0.2s ease;
+}
+
+.setting-item:hover {
+    background-color: var(--SmartThemeBorderColor);
+}
+
+.setting-item input[type="checkbox"] {
+    margin-right: 8px;
+}
+
+.setting-item label {
+    font-size: 0.9em;
+    color: var(--SmartThemeBodyColor);
+    cursor: pointer;
+    flex: 1;
+}
+
+.setting-item .setting-value {
+    font-size: 0.8em;
+    color: var(--SmartThemeBodyColor);
+    opacity: 0.7;
+    margin-left: 8px;
+}
+
+/* 기본 설정 관리 섹션 스타일 */
+.default-settings-section {
+    border: 2px solid #4CAF50;
+    background-color: rgba(76, 175, 80, 0.1);
+}
+
+/* 기본 설정 관리 섹션 스타일 */
+.default-settings-section {
+    border: 2px solid #4CAF50;
+    background-color: rgba(76, 175, 80, 0.1);
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+    .ThemePresetManager-extension_block.flex-container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .ThemePresetManager-extension_block .flex-container {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .ThemePresetManager-extension_block .flex-container input[type="text"],
+    .ThemePresetManager-extension_block .flex-container select {
+        width: 100%;
+        min-width: auto;
+    }
+    
+    .ThemePresetManager-extension_block .flex-container button {
+        width: 100%;
+        margin: 2px 0;
+    }
+    
+    .preset-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .preset-actions {
+        margin-top: 5px;
+        width: 100%;
+        justify-content: flex-end;
+    }
+}

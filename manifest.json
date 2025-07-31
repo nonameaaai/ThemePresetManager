@@ -1,0 +1,17 @@
+{
+    "display_name": "ThemePresetManager",
+    "description": "캐릭터별, 채팅별로 테마와 사용자 설정을 자동저장하고 복원하는 확장입니다. 채팅이나 캐릭터를 전환할 때 자동으로 테마가 적용됩니다.",
+    "loading_order": 9,
+    "requires": [],
+    "optional": [],
+    "js": "index.js",
+    "css": "style.css",
+    "author": "yourNameHere",
+    "version": "1.0.0",
+    "homePage": "yourUrlHere",
+    "license": "AGPL-3.0",
+    "auto_update": true,
+    "i18n": {
+        "ko-kr": "i18n/ko-kr.json"
+    }
+}
