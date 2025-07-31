@@ -1,3 +1,7 @@
+# 주의!
+이 확장 프로그램은 아직 테스트중인 버전이며 설치시 책임은 본인에게 있습니다
+현재는 몇가지 기능에 대한 보증이 되지 않는 상태이며 곧 정식 배포버전이 제공될 예정입니다.
+
 # ThemePresetManager
 
 SillyTavern용 테마 프리셋 관리자 확장입니다. 캐릭터별, 채팅별로 테마와 사용자 설정을 자동저장하고 복원하는 시스템을 제공합니다.
@@ -29,7 +33,7 @@ SillyTavern용 테마 프리셋 관리자 확장입니다. 캐릭터별, 채팅�
 
 ## 🚀 설치 방법
 
-1. 이 폴더를 `SillyTavern/public/scripts/extensions/third-party/` 디렉토리에 복사
+1. 확장프로그램 설치에서 `https://github.com/nonameaaai/ThemePresetManager` 입력
 2. SillyTavern을 재시작
 3. 설정 메뉴에서 "테마 프리셋 관리자" 확장 활성화
 
@@ -179,10 +183,6 @@ SillyTavern용 테마 프리셋 관리자 확장입니다. 캐릭터별, 채팅�
 ## 📄 라이선스
 
 AGPL-3.0
-
-## 👨‍💻 개발자
-
-yourNameHere
 
 ---
 
