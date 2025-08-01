@@ -60,7 +60,7 @@ const defaultSelectedSettings = {
     // UI 모드 (3개)
     fast_ui_mode: true,
     waifuMode: true,
-    noShadows: true,
+    noShadowsmode: true,
     
     // 개별 처리 요소들 (5개) - 기본값일 때는 false, 사용자가 선택하거나 등록된 설정값에 준함
     aux_field: false,
@@ -773,7 +773,7 @@ function updateUIElement(key, powerUserKey, value) {
 function callSpecialApplyFunction(powerUserKey) {
     const applyFunctions = {
         'fast_ui_mode': 'switchUiMode',
-        'noShadows': 'applyNoShadows',
+        'noShadowsmode': 'applyNoShadows',
         'movingUI': 'switchMovingUI',
         'waifuMode': 'switchWaifuMode',
         'spoiler_free_mode': 'switchSpoilerMode',
@@ -1789,7 +1789,7 @@ function createAdvancedSettingsUI() {
             'toastr_position_select': 'toastr_position',
             'fast_ui_mode_checkbox': 'fast_ui_mode',
             'waifuMode_checkbox': 'waifuMode',
-            'noShadows_checkbox': 'noShadows'
+            'noShadows_checkbox': 'noShadowsmode'
         };
         
         if (uiKeyMap[settingKey]) {
@@ -2033,13 +2033,13 @@ function initializeDefaultSettingsIfNeeded() {
                 'blur_strength_slider': 'blur_strength',
                 'shadow_width_slider': 'shadow_width',
                 'font_scale_slider': 'font_scale',
-                'chat_width_slider': 'chat_width',
+                'chat_width_slider': 'chat_width_slider_counter',
                 'avatar_style_select': 'avatar_style',
                 'chat_display_select': 'chat_display',
                 'toastr_position_select': 'toastr_position',
                 'fast_ui_mode_checkbox': 'fast_ui_mode',
                 'waifuMode_checkbox': 'waifuMode',
-                'noShadows_checkbox': 'noShadows'
+                'noShadows_checkbox': 'noShadowsmode'
             };
             
             if (uiKeyMap[finalKey]) {
