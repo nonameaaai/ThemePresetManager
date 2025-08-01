@@ -150,7 +150,7 @@ function getCurrentCharacterId() {
     try {
         // this_chid는 현재 선택된 캐릭터의 배열 인덱스입니다.
         if (this_chid === undefined || !characters[this_chid]) {
-            console.warn('ThemePresetManager: 현재 선택된 캐릭터가 없습니다.');
+            //console.warn('ThemePresetManager: 현재 선택된 캐릭터가 없습니다.');
             return null;
         }
 
@@ -403,7 +403,7 @@ function getCurrentThemeAndSettings(selectedOnly = false, customSelectedSettings
     
     const settings = extension_settings[extensionName];
     const selectedSettings = customSelectedSettings || settings.selectedSettings || settings.defaultSelectedSettings || defaultSelectedSettings;
-    //console.log('ThemePresetManager: getCurrentThemeAndSettings - selectedSettings 결정', { 
+    console.log('ThemePresetManager: getCurrentThemeAndSettings - selectedSettings 결정', { 
         customSelectedSettings: !!customSelectedSettings, 
         hasSelectedSettings: !!settings.selectedSettings, 
         hasDefaultSelectedSettings: !!settings.defaultSelectedSettings,
@@ -872,7 +872,7 @@ function saveToAutoSlot() {
     };
     
     saveSettingsDebounced();
-    //console.log('ThemePresetManager: 스마트 자동저장 - 자동 저장 슬롯에 저장 완료', {
+    console.log('ThemePresetManager: 스마트 자동저장 - 자동 저장 슬롯에 저장 완료', {
         themeCount: Object.keys(currentSettings.theme).length,
         settingsCount: Object.keys(currentSettings.settings).length,
         description: saveDescription,
@@ -900,7 +900,7 @@ function restoreFromAutoSlot() {
     
     applyThemeAndSettings(settings.autoSaveSlot.theme, settings.autoSaveSlot.settings);
     toastr.success(`자동 저장 슬롯의 설정으로 복원되었습니다. (${themeCount}개 테마 + ${settingsCount}개 설정, 저장시간: ${savedTime})`);
-    //console.log('ThemePresetManager: 자동 저장 슬롯에서 복원 완료', {
+    console.log('ThemePresetManager: 자동 저장 슬롯에서 복원 완료', {
         savedTime,
         themeCount,
         settingsCount
@@ -929,7 +929,7 @@ function deleteAutoSlot() {
     saveSettingsDebounced();
     
     toastr.success(`자동 저장 슬롯이 삭제되었습니다. (${themeCount}개 테마 + ${settingsCount}개 설정, 저장시간: ${savedTime})`);
-    //console.log('ThemePresetManager: 자동 저장 슬롯 삭제 완료', {
+    console.log('ThemePresetManager: 자동 저장 슬롯 삭제 완료', {
         savedTime,
         themeCount,
         settingsCount
@@ -952,7 +952,7 @@ function overwriteAutoSlot() {
         const oldThemeCount = Object.keys(settings.autoSaveSlot.theme).length;
         const oldSettingsCount = Object.keys(settings.autoSaveSlot.settings).length;
         
-        //console.log('ThemePresetManager: 스마트 자동저장 - 기존 자동 저장 슬롯 정보', {
+        console.log('ThemePresetManager: 스마트 자동저장 - 기존 자동 저장 슬롯 정보', {
             oldSavedTime,
             oldThemeCount,
             oldSettingsCount,
@@ -1005,7 +1005,7 @@ function overwriteAutoSlot() {
         toastr.success(`자동 저장 슬롯에 현재 설정이 저장되었습니다. (${newThemeCount}개 테마 + ${newSettingsCount}개 설정)`);
     }
     
-    //console.log('ThemePresetManager: 스마트 자동저장 - 자동 저장 슬롯 덮어쓰기 완료', {
+    console.log('ThemePresetManager: 스마트 자동저장 - 자동 저장 슬롯 덮어쓰기 완료', {
         newThemeCount,
         newSettingsCount,
         description: saveDescription,
@@ -1379,7 +1379,7 @@ function importSettings(file) {
             saveSettingsDebounced();
             updateUI();
             
-            //console.log('ThemePresetManager: 설정 가져오기 완료', { 
+            console.log('ThemePresetManager: 설정 가져오기 완료', { 
                 mode: isMergeMode ? '병합' : '대체',
                 importedSettings: extension_settings[extensionName] 
             });
@@ -1587,8 +1587,8 @@ function createAdvancedSettingsUI() {
         const isVisible = element.is(':visible');
         const offset = element.offset();
         const hasOffset = offset && offset.top !== undefined && offset.left !== undefined;
-        
-        //console.log(`ThemePresetManager: 요소 가시성 확인 - ${settingKey}:`, {
+        /*
+        console.log(`ThemePresetManager: 요소 가시성 확인 - ${settingKey}:`, {
             isVisible,
             hasOffset,
             offset,
@@ -1597,7 +1597,7 @@ function createAdvancedSettingsUI() {
             disabledClass: element.hasClass('disabled'),
             style: element.attr('style')
         });
-        
+        */
         processedKeys.add(settingKey);
         processedCount++;
         
@@ -1834,21 +1834,24 @@ function createAdvancedSettingsUI() {
     });
     
     // 최종 통계 로그
-    //console.log('ThemePresetManager: 처리 통계', {
+	/*
+    console.log('ThemePresetManager: 처리 통계', {
         총_요소수: allElements.length,
         처리된_요소수: processedCount,
         제외된_요소수: excludedCount,
         powerUser_키_못찾음: powerUserNotFoundCount,
         숨겨진_요소_제외: hiddenExcludedCount
     });
-    
-    //console.log('ThemePresetManager: 카테고리별 설정 수', {
+    */
+	/*
+    console.log('ThemePresetManager: 카테고리별 설정 수', {
         theme: categorizedSettings.theme.length,
         ui: categorizedSettings.ui.length,
         message: categorizedSettings.message.length,
         other: categorizedSettings.other.length
     });
-    
+    */
+	
     // 7. HTML 생성 함수
     function createSettingsHTML(settingsArray, containerId) {
         const container = $(`#${containerId}`);
@@ -1875,14 +1878,15 @@ function createAdvancedSettingsUI() {
     createSettingsHTML(categorizedSettings.ui, 'ThemePresetManager_uiSettings');
     createSettingsHTML(categorizedSettings.message, 'ThemePresetManager_messageSettings');
     createSettingsHTML(categorizedSettings.other, 'ThemePresetManager_otherSettings');
-    
-    //console.log('ThemePresetManager: 상세설정 UI 생성 완료', {
+    /*
+    console.log('ThemePresetManager: 상세설정 UI 생성 완료', {
         theme: categorizedSettings.theme.length,
         ui: categorizedSettings.ui.length,
         message: categorizedSettings.message.length,
         other: categorizedSettings.other.length,
         총_설정수: Object.values(categorizedSettings).reduce((sum, arr) => sum + arr.length, 0)
     });
+	*/
 }
 
 // 스마트 자동저장: 기본 설정 초기화 로직
@@ -1897,12 +1901,12 @@ function initializeDefaultSettingsIfNeeded() {
     try {
         const settings = extension_settings[extensionName];
         const currentDefaultSettings = settings.defaultSelectedSettings || {};
-        
-        //console.log('ThemePresetManager: 스마트 자동저장 - 현재 기본 설정 상태', {
+        /*
+        console.log('ThemePresetManager: 스마트 자동저장 - 현재 기본 설정 상태', {
             현재_설정수: Object.keys(currentDefaultSettings).length,
             현재_설정들: Object.keys(currentDefaultSettings)
         });
-        
+        */
         // DOM에서 실제 사용 가능한 설정들 스캔 (createAdvancedSettingsUI와 동일한 로직)
         const allElements = $('#user-settings-block').find('input, select, textarea, toolcool-color-picker');
         const domSettingKeys = new Set();
@@ -2048,12 +2052,12 @@ function initializeDefaultSettingsIfNeeded() {
         // 새로운 설정들 추가
         const newSettings = ['aux_field', 'background_thumbnails_animation', 'relaxed_api_urls', 'example_messages_behavior', 'auto-load-chat-checkbox'];
         newSettings.forEach(key => domSettingKeys.add(key));
-        
-        //console.log('ThemePresetManager: 스마트 자동저장 - DOM에서 발견된 설정들', {
+        /*
+        console.log('ThemePresetManager: 스마트 자동저장 - DOM에서 발견된 설정들', {
             DOM_설정수: domSettingKeys.size,
             DOM_설정들: Array.from(domSettingKeys)
         });
-        
+        */
         // 누락된 설정들 찾기 및 추가 (기존값 보존)
         let addedCount = 0;
         const updatedDefaultSettings = { ...currentDefaultSettings };
@@ -2069,10 +2073,12 @@ function initializeDefaultSettingsIfNeeded() {
         if (addedCount > 0) {
             settings.defaultSelectedSettings = updatedDefaultSettings;
             saveSettingsDebounced();
-            //console.log('ThemePresetManager: 스마트 자동저장 - 기본 설정 업데이트 완료', {
+			/*
+            console.log('ThemePresetManager: 스마트 자동저장 - 기본 설정 업데이트 완료', {
                 추가된_설정수: addedCount,
                 최종_설정수: Object.keys(updatedDefaultSettings).length
             });
+			*/
         } else {
             //console.log('ThemePresetManager: 스마트 자동저장 - 추가할 설정 없음');
         }
@@ -2334,15 +2340,15 @@ function selectDefaultSettingsOnly() {
     
     // 임시 저장
     saveSelectedSettings();
-    
-    //console.log('ThemePresetManager: 기본 설정만 선택 완료', { 
+    /*
+    console.log('ThemePresetManager: 기본 설정만 선택 완료', { 
         selectedCount, 
         notFoundCount, 
         selectedKeys,
         notFoundKeys,
         defaultSettings 
     });
-    
+    */
     if (notFoundCount > 0) {
         console.warn(`ThemePresetManager: ${notFoundCount}개 설정이 UI에 생성되지 않아 선택할 수 없음`, notFoundKeys);
     }
@@ -2745,9 +2751,11 @@ function onShowAdvancedSettings() {
         }
         
         saveInfo.html('💡 <strong>저장 방식:</strong> <span style="color: #4CAF50;">상세설정 패널이 열려있어 선택된 설정만 저장됩니다.</span>');
-        //console.log('ThemePresetManager: 상세설정 패널 열림 - 임시 설정 모드', {
+		/*
+        console.log('ThemePresetManager: 상세설정 패널 열림 - 임시 설정 모드', {
             hasCurrentSelected: !!currentSelectedSettings
         });
+		*/
     }
 }
 
@@ -2964,7 +2972,7 @@ function setCurrentBackground(imagePath, style = 'classic', lockBackground = fal
         const encodedFileName = encodeURIComponent(fileName);
         url = `url("backgrounds/${encodedFileName}")`;
         
-        //console.log('ThemePresetManager: 배경 URL 생성 성공', { 
+        console.log('ThemePresetManager: 배경 URL 생성 성공', { 
             fileName, 
             encodedFileName, 
             url,
@@ -3008,7 +3016,7 @@ function setCurrentBackground(imagePath, style = 'classic', lockBackground = fal
     // 6. 설정 저장
     saveSettingsDebounced();
     
-    //console.log('ThemePresetManager: 배경 변경 완료', { 
+    console.log('ThemePresetManager: 배경 변경 완료', { 
         originalPath: imagePath, 
         normalizedPath: normalizedPath, 
         finalUrl: url,
@@ -3049,13 +3057,13 @@ function normalizeBackgroundPath(path) {
         normalizedPath = normalizedPath.replace(/\.jpg\.jpg$/, '.jpg');
         //console.log('ThemePresetManager: 중복 .jpg 확장자 제거됨', { before: path, after: normalizedPath });
     }
-    
-    //console.log('ThemePresetManager: 배경 경로 정규화 완료', { 
+    /*
+    console.log('ThemePresetManager: 배경 경로 정규화 완료', { 
         originalPath: path, 
         normalizedPath: normalizedPath,
         isChanged: path !== normalizedPath
     });
-    
+    */
     return normalizedPath;
 }
 
@@ -3348,7 +3356,7 @@ function importSpecificSettings(file) {
                 `취소: 대체 모드 (기존 설정을 완전히 덮어쓰기)`
             );
             
-            //console.log('ThemePresetManager: 특정 설정 가져오기 방식 선택됨', { 
+            console.log('ThemePresetManager: 특정 설정 가져오기 방식 선택됨', { 
                 type: importData.type, 
                 isMergeMode 
             });
