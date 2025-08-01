@@ -365,7 +365,7 @@ function updateAutoSlotUI() {
             .addClass('enabled-button')
             .text('현재 설정으로 덮어쓰기');
         
-        //console.log('ThemePresetManager: 자동저장슬롯 있음 - 버튼들 활성화', {
+        console.log('ThemePresetManager: 자동저장슬롯 있음 - 버튼들 활성화', {
             savedTime,
             themeCount,
             settingsCount
