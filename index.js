@@ -3077,7 +3077,7 @@ jQuery(async () => {
     // settingsHtml을 extensions_settings에 추가합니다.
     // extension_settings는 설정 메뉴의 왼쪽열, extensions_settings2는 설정 메뉴의 오른쪽 열입니다.
     // 왼쪽은 시스템 기능을 다루는 확장 프로그램이어야 하고, 오른쪽은 시각/UI 관련이어야 합니다.
-    $("#extensions_settings").append(settingsHtml);
+    $("#extensions_settings2").append(settingsHtml);
 
     // 이벤트 리스너 등록
     $("#ThemePresetManager_enabled").on("input", onEnabledChange);
