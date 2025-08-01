@@ -89,7 +89,7 @@ async function saveDataToCharacter(key, value) {
 
     // 확장 데이터 객체에 값을 할당합니다.
     character.data.extensions[extensionName][key] = value;
-    console.log(`ThemePresetManager: ${character.name} 캐릭터에 데이터 저장:`, { [key]: value });
+    //console.log(`ThemePresetManager: ${character.name} 캐릭터에 데이터 저장:`, { [key]: value });
 
     // 서버의 '/api/characters/merge-attributes' 엔드포인트로 변경사항을 전송하여 저장합니다.
     try {
@@ -130,7 +130,7 @@ function saveDataToChat(key, value) {
     if (!chat_metadata.extensions[extensionName]) chat_metadata.extensions[extensionName] = {};
 
     chat_metadata.extensions[extensionName][key] = value;
-    console.log('ThemePresetManager: 현재 채팅에 데이터 저장:', { [key]: value });
+    //console.log('ThemePresetManager: 현재 채팅에 데이터 저장:', { [key]: value });
 
     // saveChatDebounced()를 호출하여 변경사항을 서버에 저장합니다.
     saveChatDebounced();
@@ -159,7 +159,7 @@ function getCurrentCharacterId() {
 
         // 캐릭터의 'avatar' 속성이 고유한 파일명이자 ID입니다.
         const characterId = currentCharacter.avatar;
-        console.log('ThemePresetManager: 현재 캐릭터 ID 가져옴', characterId);
+        //console.log('ThemePresetManager: 현재 캐릭터 ID 가져옴', characterId);
         return characterId;
     } catch (error) {
         console.error('ThemePresetManager: 캐릭터 ID 가져오기 오류', error);
@@ -168,16 +168,16 @@ function getCurrentCharacterId() {
 }
 
 // DEBUG: 확장 초기화 로그
-console.log('ThemePresetManager: 확장 초기화 시작');
+//console.log('ThemePresetManager: 확장 초기화 시작');
 
 // 설정 로드 함수
 async function loadSettings() {
-    console.log('ThemePresetManager: 설정 로드 시작');
+    //console.log('ThemePresetManager: 설정 로드 시작');
     
     // extension_settings에 확장 설정이 없으면 기본값으로 초기화
     if (!extension_settings[extensionName]) {
         extension_settings[extensionName] = { ...defaultSettings };
-        console.log('ThemePresetManager: extension_settings 초기화됨');
+        //console.log('ThemePresetManager: extension_settings 초기화됨');
     }
     
     // 필수 설정들이 없으면 기본값으로 초기화
@@ -201,17 +201,17 @@ async function loadSettings() {
     
     if (!settings.defaultSelectedSettings || Object.keys(settings.defaultSelectedSettings).length === 0) {
         settings.defaultSelectedSettings = { ...defaultSelectedSettings };
-        console.log('ThemePresetManager: defaultSelectedSettings를 기본값으로 초기화');
+        //console.log('ThemePresetManager: defaultSelectedSettings를 기본값으로 초기화');
     }
     
     // 임시 selectedSettings 초기화 (세션 시작 시)
     currentSelectedSettings = null;
-    console.log('ThemePresetManager: currentSelectedSettings 초기화됨 (null)');
+    //console.log('ThemePresetManager: currentSelectedSettings 초기화됨 (null)');
     
     // UI 업데이트
     updateUI();
     
-    console.log('ThemePresetManager: 설정 로드 완료', extension_settings[extensionName]);
+    //console.log('ThemePresetManager: 설정 로드 완료', extension_settings[extensionName]);
 }
 
 // UI 업데이트 함수
@@ -228,7 +228,7 @@ function updateUI() {
     // 자동저장슬롯 상태에 따른 UI 업데이트
     updateAutoSlotUI();
     
-    console.log('ThemePresetManager: UI 업데이트 완료');
+    //console.log('ThemePresetManager: UI 업데이트 완료');
 }
 
 // 현재 채팅 이름 가져오기
@@ -269,7 +269,7 @@ function getCurrentCharacterName() {
 
 // 현재 저장 상태 업데이트 함수 (새로운 내부 구조 방식 우선)
 function updateCurrentStatus() {
-    console.log('ThemePresetManager: 현재 상태 업데이트 시작');
+    //console.log('ThemePresetManager: 현재 상태 업데이트 시작');
     
     const settings = extension_settings[extensionName];
     
@@ -277,14 +277,14 @@ function updateCurrentStatus() {
     currentChatId = getCurrentChatId();
     currentCharacterId = getCurrentCharacterId();
     
-    console.log('ThemePresetManager: 현재 ID', { currentChatId, currentCharacterId });
+    //console.log('ThemePresetManager: 현재 ID', { currentChatId, currentCharacterId });
     
     const chatStatus = $("#ThemePresetManager_chatStatus");
     const characterStatus = $("#ThemePresetManager_characterStatus");
     
     // UI 요소가 존재하는지 확인
     if (chatStatus.length === 0 || characterStatus.length === 0) {
-        console.log('ThemePresetManager: UI 요소가 아직 로드되지 않음, 상태 업데이트 건너뜀');
+        //console.log('ThemePresetManager: UI 요소가 아직 로드되지 않음, 상태 업데이트 건너뜀');
         return;
     }
     
@@ -292,7 +292,7 @@ function updateCurrentStatus() {
     let chatTheme = loadDataFromChat('themeData');
     if (!chatTheme && currentChatId && settings.chatThemes && settings.chatThemes[currentChatId]) {
         chatTheme = settings.chatThemes[currentChatId];
-        console.log('ThemePresetManager: 기존 extension_settings에서 채팅 테마 확인');
+        //console.log('ThemePresetManager: 기존 extension_settings에서 채팅 테마 확인');
     }
     
     if (chatTheme) {
@@ -300,18 +300,18 @@ function updateCurrentStatus() {
         const themeName = chatTheme.theme?.theme || '기본 테마';
         const chatName = getCurrentChatName() || '현재 채팅';
         chatStatus.html(`✅ <strong>${chatName}</strong><br>📁 테마: <strong>${themeName}</strong><br>📅 저장일시: ${savedTime}`);
-        console.log('ThemePresetManager: 채팅 테마 상태 업데이트됨', { chatName, themeName });
+        //console.log('ThemePresetManager: 채팅 테마 상태 업데이트됨', { chatName, themeName });
     } else {
         const chatName = getCurrentChatName() || '현재 채팅';
         chatStatus.html(`❌ <strong>${chatName}</strong><br>저장된 테마가 없습니다.`);
-        console.log('ThemePresetManager: 채팅 테마 없음', { chatName });
+        //console.log('ThemePresetManager: 채팅 테마 없음', { chatName });
     }
     
     // 캐릭터 저장 상태 확인 (새로운 내부 구조 방식 우선)
     let characterTheme = loadDataFromCharacter('themeData');
     if (!characterTheme && currentCharacterId && settings.characterThemes && settings.characterThemes[currentCharacterId]) {
         characterTheme = settings.characterThemes[currentCharacterId];
-        console.log('ThemePresetManager: 기존 extension_settings에서 캐릭터 테마 확인');
+        //console.log('ThemePresetManager: 기존 extension_settings에서 캐릭터 테마 확인');
     }
     
     if (characterTheme) {
@@ -319,19 +319,19 @@ function updateCurrentStatus() {
         const themeName = characterTheme.theme?.theme || '기본 테마';
         const characterName = getCurrentCharacterName() || '현재 캐릭터';
         characterStatus.html(`✅ <strong>${characterName}</strong><br>📁 테마: <strong>${themeName}</strong><br>📅 저장일시: ${savedTime}`);
-        console.log('ThemePresetManager: 캐릭터 테마 상태 업데이트됨', { characterName, themeName });
+        //console.log('ThemePresetManager: 캐릭터 테마 상태 업데이트됨', { characterName, themeName });
     } else {
         const characterName = getCurrentCharacterName() || '현재 캐릭터';
         characterStatus.html(`❌ <strong>${characterName}</strong><br>저장된 테마가 없습니다.`);
-        console.log('ThemePresetManager: 캐릭터 테마 없음', { characterName });
+        //console.log('ThemePresetManager: 캐릭터 테마 없음', { characterName });
     }
     
-    console.log('ThemePresetManager: 현재 상태 업데이트 완료');
+    //console.log('ThemePresetManager: 현재 상태 업데이트 완료');
 }
 
 // 자동저장슬롯 상태에 따른 UI 업데이트
 function updateAutoSlotUI() {
-    console.log('ThemePresetManager: 자동저장슬롯 UI 업데이트 시작');
+    //console.log('ThemePresetManager: 자동저장슬롯 UI 업데이트 시작');
     
     const settings = extension_settings[extensionName];
     const restoreButton = $("#ThemePresetManager_restoreFromAutoSlot");
@@ -365,7 +365,7 @@ function updateAutoSlotUI() {
             .addClass('enabled-button')
             .text('현재 설정으로 덮어쓰기');
         
-        console.log('ThemePresetManager: 자동저장슬롯 있음 - 버튼들 활성화', {
+        //console.log('ThemePresetManager: 자동저장슬롯 있음 - 버튼들 활성화', {
             savedTime,
             themeCount,
             settingsCount
@@ -393,17 +393,17 @@ function updateAutoSlotUI() {
             .addClass('enabled-button')
             .text('현재 설정으로 저장 (새로 생성)');
         
-        console.log('ThemePresetManager: 자동저장슬롯 없음 - 복원/삭제 버튼 비활성화');
+        //console.log('ThemePresetManager: 자동저장슬롯 없음 - 복원/삭제 버튼 비활성화');
     }
 }
 
 // 현재 테마와 설정 가져오기 (선택된 설정만)
 function getCurrentThemeAndSettings(selectedOnly = false, customSelectedSettings = null) {
-    console.log('ThemePresetManager: 현재 테마와 설정 수집 시작', { selectedOnly, customSelectedSettings });
+    //console.log('ThemePresetManager: 현재 테마와 설정 수집 시작', { selectedOnly, customSelectedSettings });
     
     const settings = extension_settings[extensionName];
     const selectedSettings = customSelectedSettings || settings.selectedSettings || settings.defaultSelectedSettings || defaultSelectedSettings;
-    console.log('ThemePresetManager: getCurrentThemeAndSettings - selectedSettings 결정', { 
+    //console.log('ThemePresetManager: getCurrentThemeAndSettings - selectedSettings 결정', { 
         customSelectedSettings: !!customSelectedSettings, 
         hasSelectedSettings: !!settings.selectedSettings, 
         hasDefaultSelectedSettings: !!settings.defaultSelectedSettings,
@@ -417,16 +417,16 @@ function getCurrentThemeAndSettings(selectedOnly = false, customSelectedSettings
     if (!selectedOnly || selectedSettings.theme) theme.theme = power_user.theme || 'default';
     if (!selectedOnly || selectedSettings.customCSS) theme.customCSS = power_user.custom_css || '';
     if (!selectedOnly || selectedSettings.background) {
-        console.log('ThemePresetManager: 배경 정보 수집 시작', { selectedOnly, backgroundSelected: selectedSettings.background });
+        //console.log('ThemePresetManager: 배경 정보 수집 시작', { selectedOnly, backgroundSelected: selectedSettings.background });
         const currentBg = getCurrentBackground();
         if (currentBg) {
             theme.background = currentBg;
-            console.log('ThemePresetManager: 배경 정보 수집 완료', currentBg);
+            //console.log('ThemePresetManager: 배경 정보 수집 완료', currentBg);
         } else {
             console.warn('ThemePresetManager: 배경 정보를 가져올 수 없음');
         }
     } else {
-        console.log('ThemePresetManager: 배경 정보 수집 건너뜀', { selectedOnly, backgroundSelected: selectedSettings.background });
+        //console.log('ThemePresetManager: 배경 정보 수집 건너뜀', { selectedOnly, backgroundSelected: selectedSettings.background });
     }
     
     // 2. Color picker 설정들 추가
@@ -515,7 +515,7 @@ function getCurrentThemeAndSettings(selectedOnly = false, customSelectedSettings
         }
     }
     
-    console.log('ThemePresetManager: 현재 테마와 설정 수집 완료', { theme, settings: userSettings, selectedOnly });
+    //console.log('ThemePresetManager: 현재 테마와 설정 수집 완료', { theme, settings: userSettings, selectedOnly });
     return { theme, settings: userSettings };
 }
 
@@ -536,7 +536,7 @@ function isThemeSetting(key, powerUserKey) {
 
 // 테마와 설정 적용 함수
 function applyThemeAndSettings(themeData, settingsData) {
-    console.log('ThemePresetManager: 테마와 설정 적용 시작', { themeData, settingsData });
+    //console.log('ThemePresetManager: 테마와 설정 적용 시작', { themeData, settingsData });
     
     isRestoring = true;
     
@@ -544,7 +544,7 @@ function applyThemeAndSettings(themeData, settingsData) {
         // 1. 핵심 테마 설정 적용 (하드코딩)
         if (themeData.theme !== undefined) {
             power_user.theme = themeData.theme;
-            console.log('ThemePresetManager: 테마 설정됨', themeData.theme);
+            //console.log('ThemePresetManager: 테마 설정됨', themeData.theme);
             
             // 테마 드롭다운 업데이트
             $('#themes').val(themeData.theme);
@@ -567,18 +567,18 @@ function applyThemeAndSettings(themeData, settingsData) {
         // 배경 설정 적용
         if (themeData.background !== undefined) {
             const bg = themeData.background;
-            console.log('ThemePresetManager: 배경 설정 적용 시작', bg);
+            //console.log('ThemePresetManager: 배경 설정 적용 시작', bg);
             if (bg.path) {
                 // 저장된 잠금 상태를 확인하여 적절히 처리
                 const shouldLock = bg.isLocked === true; // 명시적으로 true인 경우만 잠금
-                console.log('ThemePresetManager: 배경 경로 확인됨, setCurrentBackground 호출', bg.path, '잠금:', shouldLock);
+                //console.log('ThemePresetManager: 배경 경로 확인됨, setCurrentBackground 호출', bg.path, '잠금:', shouldLock);
                 setCurrentBackground(bg.path, bg.style || 'cover', shouldLock);
-                console.log('ThemePresetManager: 배경 설정 적용 완료', bg);
+                //console.log('ThemePresetManager: 배경 설정 적용 완료', bg);
             } else {
                 console.warn('ThemePresetManager: 배경 경로가 없어서 적용하지 않음', bg);
             }
         } else {
-            console.log('ThemePresetManager: 배경 설정이 없어서 적용하지 않음');
+            //console.log('ThemePresetManager: 배경 설정이 없어서 적용하지 않음');
         }
         
         // Color picker 설정들 적용
@@ -617,7 +617,7 @@ function applyThemeAndSettings(themeData, settingsData) {
                     applyThemeColor(colorType);
                 }
                 
-                console.log('ThemePresetManager: 색상 설정 적용됨', { colorKey, value: themeData[colorKey] });
+                //console.log('ThemePresetManager: 색상 설정 적용됨', { colorKey, value: themeData[colorKey] });
             }
         });
         
@@ -670,7 +670,7 @@ function applyThemeAndSettings(themeData, settingsData) {
         // 설정 저장
         saveSettingsDebounced();
         
-        console.log('ThemePresetManager: 테마와 설정 적용 완료');
+        //console.log('ThemePresetManager: 테마와 설정 적용 완료');
     } catch (error) {
         console.error('ThemePresetManager: 테마와 설정 적용 중 오류', error);
     } finally {
@@ -834,7 +834,7 @@ function callSpecialApplyFunction(powerUserKey) {
 
 // 자동 저장 슬롯에 현재 설정 저장 (복원 직전 값)
 function saveToAutoSlot() {
-    console.log('ThemePresetManager: 스마트 자동저장 - 자동 저장 슬롯에 저장 시작');
+    //console.log('ThemePresetManager: 스마트 자동저장 - 자동 저장 슬롯에 저장 시작');
     
     const settings = extension_settings[extensionName];
     let currentSettings;
@@ -843,7 +843,7 @@ function saveToAutoSlot() {
     // 스마트 자동저장: 사용자 경험에 따른 분기
     if (hasAdvancedSettingsBeenOpened) {
         // 케이스 2-2: 사용자가 상세설정을 사용한 경우 - 전체선택과 동일
-        console.log('ThemePresetManager: 스마트 자동저장 - 상세설정 사용자 감지, 전체선택 사양으로 저장');
+        //console.log('ThemePresetManager: 스마트 자동저장 - 상세설정 사용자 감지, 전체선택 사양으로 저장');
         // 상세설정 UI에서 체크된 모든 설정을 가져오기
         const selectedSettings = {};
         $('.setting-item input[type="checkbox"]:checked').each(function() {
@@ -854,7 +854,7 @@ function saveToAutoSlot() {
         saveDescription = '테마 변경 직전의 모든 설정 상태 (전체선택 사양)';
     } else {
         // 케이스 2-1: 사용자가 상세설정을 사용하지 않은 경우 - 기본옵션만
-        console.log('ThemePresetManager: 스마트 자동저장 - 상세설정 미사용자 감지, 기본옵션만 저장');
+        //console.log('ThemePresetManager: 스마트 자동저장 - 상세설정 미사용자 감지, 기본옵션만 저장');
         const result = getCurrentThemeAndSettings(true, settings.defaultSelectedSettings);
         currentSettings = {
             theme: result.theme,
@@ -872,7 +872,7 @@ function saveToAutoSlot() {
     };
     
     saveSettingsDebounced();
-    console.log('ThemePresetManager: 스마트 자동저장 - 자동 저장 슬롯에 저장 완료', {
+    //console.log('ThemePresetManager: 스마트 자동저장 - 자동 저장 슬롯에 저장 완료', {
         themeCount: Object.keys(currentSettings.theme).length,
         settingsCount: Object.keys(currentSettings.settings).length,
         description: saveDescription,
@@ -886,7 +886,7 @@ function saveToAutoSlot() {
 
 // 자동 저장 슬롯에서 설정 복원
 function restoreFromAutoSlot() {
-    console.log('ThemePresetManager: 자동 저장 슬롯에서 복원 시작');
+    //console.log('ThemePresetManager: 자동 저장 슬롯에서 복원 시작');
     
     const settings = extension_settings[extensionName];
     if (!settings.autoSaveSlot) {
@@ -900,7 +900,7 @@ function restoreFromAutoSlot() {
     
     applyThemeAndSettings(settings.autoSaveSlot.theme, settings.autoSaveSlot.settings);
     toastr.success(`자동 저장 슬롯의 설정으로 복원되었습니다. (${themeCount}개 테마 + ${settingsCount}개 설정, 저장시간: ${savedTime})`);
-    console.log('ThemePresetManager: 자동 저장 슬롯에서 복원 완료', {
+    //console.log('ThemePresetManager: 자동 저장 슬롯에서 복원 완료', {
         savedTime,
         themeCount,
         settingsCount
@@ -913,7 +913,7 @@ function restoreFromAutoSlot() {
 
 // 자동 저장 슬롯 삭제
 function deleteAutoSlot() {
-    console.log('ThemePresetManager: 자동 저장 슬롯 삭제 시작');
+    //console.log('ThemePresetManager: 자동 저장 슬롯 삭제 시작');
     
     const settings = extension_settings[extensionName];
     if (!settings.autoSaveSlot) {
@@ -929,7 +929,7 @@ function deleteAutoSlot() {
     saveSettingsDebounced();
     
     toastr.success(`자동 저장 슬롯이 삭제되었습니다. (${themeCount}개 테마 + ${settingsCount}개 설정, 저장시간: ${savedTime})`);
-    console.log('ThemePresetManager: 자동 저장 슬롯 삭제 완료', {
+    //console.log('ThemePresetManager: 자동 저장 슬롯 삭제 완료', {
         savedTime,
         themeCount,
         settingsCount
@@ -942,7 +942,7 @@ function deleteAutoSlot() {
 
 // 현재 설정으로 자동 저장 슬롯 덮어쓰기 (스마트 자동저장 사양)
 function overwriteAutoSlot() {
-    console.log('ThemePresetManager: 스마트 자동저장 - 자동 저장 슬롯 덮어쓰기 시작');
+    //console.log('ThemePresetManager: 스마트 자동저장 - 자동 저장 슬롯 덮어쓰기 시작');
     
     const settings = extension_settings[extensionName];
     
@@ -952,7 +952,7 @@ function overwriteAutoSlot() {
         const oldThemeCount = Object.keys(settings.autoSaveSlot.theme).length;
         const oldSettingsCount = Object.keys(settings.autoSaveSlot.settings).length;
         
-        console.log('ThemePresetManager: 스마트 자동저장 - 기존 자동 저장 슬롯 정보', {
+        //console.log('ThemePresetManager: 스마트 자동저장 - 기존 자동 저장 슬롯 정보', {
             oldSavedTime,
             oldThemeCount,
             oldSettingsCount,
@@ -966,7 +966,7 @@ function overwriteAutoSlot() {
     
     if (hasAdvancedSettingsBeenOpened) {
         // 케이스 2-2: 사용자가 상세설정을 사용한 경우 - 전체선택과 동일
-        console.log('ThemePresetManager: 스마트 자동저장 - 상세설정 사용자 감지, 전체선택 사양으로 덮어쓰기');
+        //console.log('ThemePresetManager: 스마트 자동저장 - 상세설정 사용자 감지, 전체선택 사양으로 덮어쓰기');
         // 상세설정 UI에서 체크된 모든 설정을 가져오기
         const selectedSettings = {};
         $('.setting-item input[type="checkbox"]:checked').each(function() {
@@ -977,7 +977,7 @@ function overwriteAutoSlot() {
         saveDescription = '사용자가 수동으로 덮어쓴 모든 설정 상태 (전체선택 사양)';
     } else {
         // 케이스 2-1: 사용자가 상세설정을 사용하지 않은 경우 - 기본옵션만
-        console.log('ThemePresetManager: 스마트 자동저장 - 상세설정 미사용자 감지, 기본옵션만으로 덮어쓰기');
+        //console.log('ThemePresetManager: 스마트 자동저장 - 상세설정 미사용자 감지, 기본옵션만으로 덮어쓰기');
         const result = getCurrentThemeAndSettings(true, settings.defaultSelectedSettings);
         currentSettings = {
             theme: result.theme,
@@ -1005,7 +1005,7 @@ function overwriteAutoSlot() {
         toastr.success(`자동 저장 슬롯에 현재 설정이 저장되었습니다. (${newThemeCount}개 테마 + ${newSettingsCount}개 설정)`);
     }
     
-    console.log('ThemePresetManager: 스마트 자동저장 - 자동 저장 슬롯 덮어쓰기 완료', {
+    //console.log('ThemePresetManager: 스마트 자동저장 - 자동 저장 슬롯 덮어쓰기 완료', {
         newThemeCount,
         newSettingsCount,
         description: saveDescription,
@@ -1020,7 +1020,7 @@ function overwriteAutoSlot() {
 
 // 테마 저장 함수 (기존 extension_settings 방식과 새로운 내부 구조 방식 모두 지원)
 async function saveTheme(type, id) {
-    console.log('ThemePresetManager: 테마 저장 시작', { type, id });
+    //console.log('ThemePresetManager: 테마 저장 시작', { type, id });
     
     if (!id) {
         toastr.error(`${type === 'chat' ? '채팅' : '캐릭터'} ID를 찾을 수 없습니다.`);
@@ -1049,7 +1049,7 @@ async function saveTheme(type, id) {
         const confirmMessage = `${type === 'chat' ? '채팅' : '캐릭터'}에 이미 저장된 테마가 있습니다.\n\n저장일시: ${savedTime}\n\n기존 설정을 덮어쓰시겠습니까?`;
         
         if (!confirm(confirmMessage)) {
-            console.log('ThemePresetManager: 사용자가 저장을 취소함');
+            //console.log('ThemePresetManager: 사용자가 저장을 취소함');
             return null;
         }
     }
@@ -1057,7 +1057,7 @@ async function saveTheme(type, id) {
     // 상세설정 패널이 열려있는지 확인 (기본옵션 사용 중단으로 단순화)
     const isAdvancedPanelOpen = $("#ThemePresetManager_advancedPanel").is(":visible");
     const settings = extension_settings[extensionName];
-    console.log('ThemePresetManager: 상세설정 패널 상태', { isAdvancedPanelOpen });
+    //console.log('ThemePresetManager: 상세설정 패널 상태', { isAdvancedPanelOpen });
     
     // 저장할 설정 결정 (기본옵션 사용 중단으로 단순화)
     let themeData;
@@ -1072,7 +1072,7 @@ async function saveTheme(type, id) {
             currentSelectedSettings[key] = true;
         });
         settings.selectedSettings = currentSelectedSettings;
-        console.log('ThemePresetManager: 상세설정 패널 열림 - 현재 체크된 설정들을 selectedSettings에 저장', currentSelectedSettings);
+        //console.log('ThemePresetManager: 상세설정 패널 열림 - 현재 체크된 설정들을 selectedSettings에 저장', currentSelectedSettings);
         
         const result = getCurrentThemeAndSettings(true);
         themeData = {
@@ -1082,7 +1082,7 @@ async function saveTheme(type, id) {
             savedWithAdvancedSettings: true
         };
         saveMessage = '선택된 설정만';
-        console.log('ThemePresetManager: 상세설정 패널 열림 - 선택된 설정만 저장');
+        //console.log('ThemePresetManager: 상세설정 패널 열림 - 선택된 설정만 저장');
     } else {
         // 상세설정 패널이 닫혀있으면 기본옵션만 저장 (민감한 정보 제외)
         const result = getCurrentThemeAndSettings(true, settings.defaultSelectedSettings);
@@ -1094,18 +1094,18 @@ async function saveTheme(type, id) {
             savedWithDefaultSettings: true
         };
         saveMessage = '기본 옵션으로 설정된 것들만';
-        console.log('ThemePresetManager: 상세설정 패널 닫힘 - 기본 옵션만 저장 (민감한 정보 제외)');
+        //console.log('ThemePresetManager: 상세설정 패널 닫힘 - 기본 옵션만 저장 (민감한 정보 제외)');
     }
     
     // 새로운 내부 구조 방식으로 저장 (권장)
     if (type === 'chat') {
         // 채팅 메타데이터에 저장
         saveDataToChat('themeData', themeData);
-        console.log('ThemePresetManager: 채팅 테마를 내부 구조로 저장 완료', { saveMessage });
+        //console.log('ThemePresetManager: 채팅 테마를 내부 구조로 저장 완료', { saveMessage });
     } else {
         // 캐릭터 카드에 저장
         await saveDataToCharacter('themeData', themeData);
-        console.log('ThemePresetManager: 캐릭터 테마를 내부 구조로 저장 완료', { saveMessage });
+        //console.log('ThemePresetManager: 캐릭터 테마를 내부 구조로 저장 완료', { saveMessage });
     }
     
     // 기존 extension_settings 방식으로도 백업 저장
@@ -1124,23 +1124,23 @@ async function saveTheme(type, id) {
     // 사용자에게 저장 방식 알림
     toastr.success(`${type === 'chat' ? '채팅' : '캐릭터'}에 ${saveMessage} 저장되었습니다.`);
     
-    console.log('ThemePresetManager: 테마 저장 완료', { type, id, saveMessage });
+    //console.log('ThemePresetManager: 테마 저장 완료', { type, id, saveMessage });
     return themeData;
 }
 
 // 테마 로드 함수 (새로운 내부 구조 방식 우선, 기존 방식 백업)
 function loadTheme(type, id) {
-    console.log('ThemePresetManager: 테마 로드 시작', { type, id });
+    //console.log('ThemePresetManager: 테마 로드 시작', { type, id });
     
     let themeData = null;
     
     // 새로운 내부 구조 방식으로 먼저 시도
     if (type === 'chat') {
         themeData = loadDataFromChat('themeData');
-        console.log('ThemePresetManager: 채팅 테마를 내부 구조에서 로드 시도', themeData);
+        //console.log('ThemePresetManager: 채팅 테마를 내부 구조에서 로드 시도', themeData);
     } else {
         themeData = loadDataFromCharacter('themeData');
-        console.log('ThemePresetManager: 캐릭터 테마를 내부 구조에서 로드 시도', themeData);
+        //console.log('ThemePresetManager: 캐릭터 테마를 내부 구조에서 로드 시도', themeData);
     }
     
     // 내부 구조에서 찾지 못한 경우 기존 extension_settings 방식으로 백업
@@ -1149,12 +1149,12 @@ function loadTheme(type, id) {
         themeData = type === 'chat' 
             ? settings.chatThemes?.[id] 
             : settings.characterThemes?.[id];
-        console.log('ThemePresetManager: 기존 extension_settings에서 백업 로드 시도', themeData);
+        //console.log('ThemePresetManager: 기존 extension_settings에서 백업 로드 시도', themeData);
     }
     
     if (themeData) {
         applyThemeAndSettings(themeData.theme, themeData.settings);
-        console.log('ThemePresetManager: 테마 로드 완료', themeData);
+        //console.log('ThemePresetManager: 테마 로드 완료', themeData);
         
         // 저장 방식에 따른 메시지 표시
         if (themeData.savedWithAdvancedSettings) {
@@ -1170,7 +1170,7 @@ function loadTheme(type, id) {
         
         return themeData;
     } else {
-        console.log('ThemePresetManager: 테마를 찾을 수 없음', { type, id });
+        //console.log('ThemePresetManager: 테마를 찾을 수 없음', { type, id });
         toastr.error(`${type === 'chat' ? '채팅' : '캐릭터'}에 저장된 테마가 없습니다.`);
         return null;
     }
@@ -1178,11 +1178,11 @@ function loadTheme(type, id) {
 
 // 자동 테마 적용 함수 (새로운 내부 구조 방식 우선)
 function autoApplyTheme() {
-    console.log('ThemePresetManager: 자동 테마 적용 시작');
+    //console.log('ThemePresetManager: 자동 테마 적용 시작');
     
     const settings = extension_settings[extensionName];
     if (!settings.enabled || !settings.autoApply) {
-        console.log('ThemePresetManager: 자동 적용이 비활성화되어 건너뜀');
+        //console.log('ThemePresetManager: 자동 적용이 비활성화되어 건너뜀');
         return;
     }
     
@@ -1190,7 +1190,7 @@ function autoApplyTheme() {
     currentChatId = getCurrentChatId();
     currentCharacterId = getCurrentCharacterId();
     
-    console.log('ThemePresetManager: 현재 ID 확인', { currentChatId, currentCharacterId });
+    //console.log('ThemePresetManager: 현재 ID 확인', { currentChatId, currentCharacterId });
     
     let applied = false;
     
@@ -1198,14 +1198,14 @@ function autoApplyTheme() {
     let chatTheme = loadDataFromChat('themeData');
     if (!chatTheme && currentChatId && settings.chatThemes && settings.chatThemes[currentChatId]) {
         chatTheme = settings.chatThemes[currentChatId];
-        console.log('ThemePresetManager: 기존 extension_settings에서 채팅 테마 로드');
+        //console.log('ThemePresetManager: 기존 extension_settings에서 채팅 테마 로드');
     }
     
     if (chatTheme) {
-        console.log('ThemePresetManager: 채팅 테마 발견, 적용 시작', chatTheme);
+        //console.log('ThemePresetManager: 채팅 테마 발견, 적용 시작', chatTheme);
         applyThemeAndSettings(chatTheme.theme, chatTheme.settings);
         applied = true;
-        console.log('ThemePresetManager: 채팅 자동 테마 적용됨');
+        //console.log('ThemePresetManager: 채팅 자동 테마 적용됨');
     }
     
     // 채팅에 없으면 캐릭터 테마 확인 (새로운 내부 구조 방식 우선)
@@ -1213,34 +1213,34 @@ function autoApplyTheme() {
         let characterTheme = loadDataFromCharacter('themeData');
         if (!characterTheme && currentCharacterId && settings.characterThemes && settings.characterThemes[currentCharacterId]) {
             characterTheme = settings.characterThemes[currentCharacterId];
-            console.log('ThemePresetManager: 기존 extension_settings에서 캐릭터 테마 로드');
+            //console.log('ThemePresetManager: 기존 extension_settings에서 캐릭터 테마 로드');
         }
         
         if (characterTheme) {
-            console.log('ThemePresetManager: 캐릭터 테마 발견, 적용 시작', characterTheme);
+            //console.log('ThemePresetManager: 캐릭터 테마 발견, 적용 시작', characterTheme);
             applyThemeAndSettings(characterTheme.theme, characterTheme.settings);
             applied = true;
-            console.log('ThemePresetManager: 캐릭터 자동 테마 적용됨');
+            //console.log('ThemePresetManager: 캐릭터 자동 테마 적용됨');
         }
     }
     
     if (!applied) {
-        console.log('ThemePresetManager: 자동 적용할 테마가 없음');
+        //console.log('ThemePresetManager: 자동 적용할 테마가 없음');
     }
     
     // UI 상태 업데이트
     updateCurrentStatus();
     
-    console.log('ThemePresetManager: 자동 테마 적용 완료', { applied, currentChatId, currentCharacterId });
+    //console.log('ThemePresetManager: 자동 테마 적용 완료', { applied, currentChatId, currentCharacterId });
 }
 
 // 자동 테마 적용 전에 현재 설정을 자동 저장 슬롯에 저장
 function autoApplyThemeWithSave() {
-    console.log('ThemePresetManager: 자동 테마 적용 (저장 포함) 시작');
+    //console.log('ThemePresetManager: 자동 테마 적용 (저장 포함) 시작');
     
     const settings = extension_settings[extensionName];
     if (!settings.enabled || !settings.autoApply) {
-        console.log('ThemePresetManager: 자동 적용이 비활성화되어 건너뜀');
+        //console.log('ThemePresetManager: 자동 적용이 비활성화되어 건너뜀');
         return;
     }
     
@@ -1248,7 +1248,7 @@ function autoApplyThemeWithSave() {
     currentChatId = getCurrentChatId();
     currentCharacterId = getCurrentCharacterId();
     
-    console.log('ThemePresetManager: 현재 ID 확인', { currentChatId, currentCharacterId });
+    //console.log('ThemePresetManager: 현재 ID 확인', { currentChatId, currentCharacterId });
     
     // 복원할 테마가 있는지 먼저 확인
     let hasThemeToRestore = false;
@@ -1271,7 +1271,7 @@ function autoApplyThemeWithSave() {
     
     // 복원할 테마가 있고, 아직 자동 저장 슬롯에 저장되지 않았다면 현재 설정을 저장
     if (hasThemeToRestore && !settings.autoSaveSlot) {
-        console.log('ThemePresetManager: 복원 직전 설정을 자동 저장 슬롯에 저장');
+        //console.log('ThemePresetManager: 복원 직전 설정을 자동 저장 슬롯에 저장');
         saveToAutoSlot();
     }
     
@@ -1281,7 +1281,7 @@ function autoApplyThemeWithSave() {
 
 // 설정 내보내기 함수
 function exportSettings() {
-    console.log('ThemePresetManager: 설정 내보내기 시작');
+    //console.log('ThemePresetManager: 설정 내보내기 시작');
     
     const settings = extension_settings[extensionName];
     
@@ -1310,12 +1310,12 @@ function exportSettings() {
     a.click();
     URL.revokeObjectURL(url);
     
-    console.log('ThemePresetManager: 설정 내보내기 완료 (임시 selectedSettings 제외)', exportData);
+    //console.log('ThemePresetManager: 설정 내보내기 완료 (임시 selectedSettings 제외)', exportData);
 }
 
 // 설정 가져오기 함수
 function importSettings(file) {
-    console.log('ThemePresetManager: 설정 가져오기 시작');
+    //console.log('ThemePresetManager: 설정 가져오기 시작');
     
     const reader = new FileReader();
     reader.onload = function(e) {
@@ -1340,14 +1340,14 @@ function importSettings(file) {
                 '대체 모드는 모든 기존 설정을 삭제하고 새로운 설정으로 교체합니다.'
             );
             
-            console.log('ThemePresetManager: 가져오기 방식 선택됨', { isMergeMode });
+            //console.log('ThemePresetManager: 가져오기 방식 선택됨', { isMergeMode });
             
             const currentSettings = extension_settings[extensionName] || {};
             const newSettings = importData.settings;
             
             if (isMergeMode) {
                 // 병합 모드: 기존 설정과 합치기
-                console.log('ThemePresetManager: 병합 모드로 설정 가져오기');
+                //console.log('ThemePresetManager: 병합 모드로 설정 가져오기');
                 extension_settings[extensionName] = {
                     ...currentSettings,
                     enabled: newSettings.enabled !== undefined ? newSettings.enabled : currentSettings.enabled,
@@ -1360,7 +1360,7 @@ function importSettings(file) {
                 };
             } else {
                 // 대체 모드: 기존 설정을 완전히 덮어쓰기
-                console.log('ThemePresetManager: 대체 모드로 설정 가져오기');
+                //console.log('ThemePresetManager: 대체 모드로 설정 가져오기');
                 extension_settings[extensionName] = {
                     enabled: newSettings.enabled !== undefined ? newSettings.enabled : defaultSettings.enabled,
                     autoApply: newSettings.autoApply !== undefined ? newSettings.autoApply : defaultSettings.autoApply,
@@ -1374,12 +1374,12 @@ function importSettings(file) {
             
             // 임시 selectedSettings 초기화 (가져오기 후 새로고침 효과)
             currentSelectedSettings = null;
-            console.log('ThemePresetManager: 설정 가져오기 후 currentSelectedSettings 초기화됨');
+            //console.log('ThemePresetManager: 설정 가져오기 후 currentSelectedSettings 초기화됨');
             
             saveSettingsDebounced();
             updateUI();
             
-            console.log('ThemePresetManager: 설정 가져오기 완료', { 
+            //console.log('ThemePresetManager: 설정 가져오기 완료', { 
                 mode: isMergeMode ? '병합' : '대체',
                 importedSettings: extension_settings[extensionName] 
             });
@@ -1394,7 +1394,7 @@ function importSettings(file) {
 
 // 상세설정 UI 생성
 function createAdvancedSettingsUI() {
-    console.log('ThemePresetManager: 상세설정 UI 생성 시작 - 최신 상태로 UI 업데이트');
+    //console.log('ThemePresetManager: 상세설정 UI 생성 시작 - 최신 상태로 UI 업데이트');
     
     // 스마트 자동저장: 기본 설정 초기화 먼저 실행
     initializeDefaultSettingsIfNeeded();
@@ -1403,7 +1403,7 @@ function createAdvancedSettingsUI() {
     const hasCurrentSelected = currentSelectedSettings !== null;
     const selectedSettings = hasCurrentSelected ? currentSelectedSettings : (extension_settings[extensionName]?.defaultSelectedSettings || defaultSelectedSettings);
     
-    console.log('ThemePresetManager: 상세설정 UI 생성 - 사용할 설정', { hasCurrentSelected, selectedSettings });
+    //console.log('ThemePresetManager: 상세설정 UI 생성 - 사용할 설정', { hasCurrentSelected, selectedSettings });
     
     // 2. 카테고리별 설정 객체 초기화
     const categorizedSettings = {
@@ -1431,12 +1431,12 @@ function createAdvancedSettingsUI() {
         });
     }
     
-    console.log('ThemePresetManager: 핵심 설정들', coreSettings.length, coreSettings);
+    //console.log('ThemePresetManager: 핵심 설정들', coreSettings.length, coreSettings);
     
     // 4. 핵심 설정들을 테마 카테고리에 추가
     coreSettings.forEach(setting => {
         categorizedSettings.theme.push(setting);
-        console.log(`ThemePresetManager: 핵심 설정 추가됨 - ${setting.key} (theme)`, setting);
+        //console.log(`ThemePresetManager: 핵심 설정 추가됨 - ${setting.key} (theme)`, setting);
     });
     
     // 5. 보안상 제외할 설정들
@@ -1448,7 +1448,7 @@ function createAdvancedSettingsUI() {
     ];
     
     // 6. 기존에 잘 작동하던 DOM 요소 수집 로직 (완전 복원)
-    console.log('ThemePresetManager: DOM 요소 수집 시작');
+    //console.log('ThemePresetManager: DOM 요소 수집 시작');
     
     // 중복 방지를 위한 제외 목록
     const DUPLICATE_EXCLUSIONS = [
@@ -1458,8 +1458,8 @@ function createAdvancedSettingsUI() {
     ];
     
     const allElements = $('#user-settings-block').find('input, select, textarea, toolcool-color-picker');
-    console.log('ThemePresetManager: 찾은 요소들 수', allElements.length);
-    console.log('ThemePresetManager: toolcool-color-picker 요소들', $('#user-settings-block').find('toolcool-color-picker').length);
+    //console.log('ThemePresetManager: 찾은 요소들 수', allElements.length);
+    //console.log('ThemePresetManager: toolcool-color-picker 요소들', $('#user-settings-block').find('toolcool-color-picker').length);
     
     let processedCount = 0;
     let excludedCount = 0;
@@ -1481,26 +1481,26 @@ function createAdvancedSettingsUI() {
         
         // Color picker 디버깅
         if (type === 'toolcool-color-picker') {
-            console.log('ThemePresetManager: Color picker 발견', { id, name, type });
+            //console.log('ThemePresetManager: Color picker 발견', { id, name, type });
         }
         
         // data-for 속성이 있으면 보조 요소이므로 건너뛰기 (연동 관계 고려)
         if (dataFor) {
-            console.log('ThemePresetManager: data-for 속성으로 제외', { id, dataFor });
+            //console.log('ThemePresetManager: data-for 속성으로 제외', { id, dataFor });
             return;
         }
         
         if (!id && !name) {
-            console.log('ThemePresetManager: ID/name 없음으로 제외', { id, name });
+            //console.log('ThemePresetManager: ID/name 없음으로 제외', { id, name });
             return;
         }
         
         const settingKey = id || name;
-        console.log('ThemePresetManager: 처리 중인 요소', { settingKey, type });
+        //console.log('ThemePresetManager: 처리 중인 요소', { settingKey, type });
         
         // 이미 처리된 설정이나 제외 목록에 있는 설정은 건너뛰기
         if (processedKeys.has(settingKey)) {
-            console.log('ThemePresetManager: 이미 처리된 키로 제외', settingKey);
+            //console.log('ThemePresetManager: 이미 처리된 키로 제외', settingKey);
             return;
         }
         
@@ -1509,16 +1509,16 @@ function createAdvancedSettingsUI() {
         if (isExcluded) {
             // 예외 처리: relaxed_api_urls는 허용
             if (settingKey === 'relaxed_api_urls') {
-                console.log('ThemePresetManager: relaxed_api_urls 예외 처리로 허용', settingKey);
+                //console.log('ThemePresetManager: relaxed_api_urls 예외 처리로 허용', settingKey);
             } else {
-                console.log('ThemePresetManager: 보안 제외 목록으로 제외', settingKey);
+                //console.log('ThemePresetManager: 보안 제외 목록으로 제외', settingKey);
                 excludedCount++;
                 return;
             }
         }
         
         if (DUPLICATE_EXCLUSIONS.includes(settingKey)) {
-            console.log('ThemePresetManager: 중복 제외 목록으로 제외', settingKey);
+            //console.log('ThemePresetManager: 중복 제외 목록으로 제외', settingKey);
             return;
         }
         
@@ -1532,7 +1532,7 @@ function createAdvancedSettingsUI() {
             settingKey === 'messageTimestampsEnabled' || settingKey === 'messageModelIconEnabled' ||
             settingKey === 'mesIDDisplayEnabled' || settingKey === 'hideChatAvatarsEnabled' ||
             settingKey === 'messageTokensEnabled' || settingKey === 'pin_styles') {
-            console.log(`ThemePresetManager: 새로운 설정으로 허용 - ${settingKey}`);
+            //console.log(`ThemePresetManager: 새로운 설정으로 허용 - ${settingKey}`);
         }
             // Color picker의 경우 특별 처리
             else if (type === 'toolcool-color-picker') {
@@ -1551,19 +1551,19 @@ function createAdvancedSettingsUI() {
                 
                 const mappedKey = colorKeyMap[settingKey];
                 if (mappedKey && power_user.hasOwnProperty(mappedKey)) {
-                    console.log(`ThemePresetManager: Color picker 키 매핑 성공 - ${settingKey} → ${mappedKey}`);
+                    //console.log(`ThemePresetManager: Color picker 키 매핑 성공 - ${settingKey} → ${mappedKey}`);
                 } else {
-                    console.log(`ThemePresetManager: Color picker 키 매핑 실패 - ${settingKey}`);
+                    //console.log(`ThemePresetManager: Color picker 키 매핑 실패 - ${settingKey}`);
                     powerUserNotFoundCount++;
                     return;
                 }
             } else {
-                console.log(`ThemePresetManager: power_user 키를 찾을 수 없음 - ${settingKey}`);
+                //console.log(`ThemePresetManager: power_user 키를 찾을 수 없음 - ${settingKey}`);
                 powerUserNotFoundCount++;
                 return;
             }
         } else {
-            console.log(`ThemePresetManager: power_user 키 찾음 - ${settingKey} → ${powerUserKey}`);
+            //console.log(`ThemePresetManager: power_user 키 찾음 - ${settingKey} → ${powerUserKey}`);
         }
         
         // 숨겨진, 비활성화된, 개발자 전용 요소들 제외
@@ -1578,7 +1578,7 @@ function createAdvancedSettingsUI() {
             settingKey.includes('internal_') ||
             (settingKey.includes('pin_') && settingKey !== 'pin_styles') || // pin_styles는 허용, 다른 pin_ 관련은 제외
             settingKey.includes('greeting_')) {
-            console.log(`ThemePresetManager: 숨겨진/비활성화 요소로 제외 - ${settingKey}`);
+            //console.log(`ThemePresetManager: 숨겨진/비활성화 요소로 제외 - ${settingKey}`);
             hiddenExcludedCount++;
             return;
         }
@@ -1588,7 +1588,7 @@ function createAdvancedSettingsUI() {
         const offset = element.offset();
         const hasOffset = offset && offset.top !== undefined && offset.left !== undefined;
         
-        console.log(`ThemePresetManager: 요소 가시성 확인 - ${settingKey}:`, {
+        //console.log(`ThemePresetManager: 요소 가시성 확인 - ${settingKey}:`, {
             isVisible,
             hasOffset,
             offset,
@@ -1641,7 +1641,7 @@ function createAdvancedSettingsUI() {
                 const i18nText = i18nSmall.text().trim();
                 if (i18nText) {
                     label = i18nText;
-                    console.log(`ThemePresetManager: i18n small 요소에서 라벨 찾음 - ${settingKey} → ${label}`);
+                    //console.log(`ThemePresetManager: i18n small 요소에서 라벨 찾음 - ${settingKey} → ${label}`);
                 }
             } else {
                 // 일반적인 small, span 요소 확인
@@ -1673,7 +1673,7 @@ function createAdvancedSettingsUI() {
                     const i18nText = i18nSmall.text().trim();
                     if (i18nText) {
                         label = i18nText;
-                        console.log(`ThemePresetManager: 부모 컨테이너 i18n small에서 라벨 찾음 - ${settingKey} → ${label}`);
+                        //console.log(`ThemePresetManager: 부모 컨테이너 i18n small에서 라벨 찾음 - ${settingKey} → ${label}`);
                     }
                 } else {
                     // 일반적인 span[data-i18n] 확인
@@ -1693,7 +1693,7 @@ function createAdvancedSettingsUI() {
                 const i18nText = i18nSmall.text().trim();
                 if (i18nText) {
                     label = i18nText;
-                    console.log(`ThemePresetManager: 직접 부모 i18n small에서 라벨 찾음 - ${settingKey} → ${label}`);
+                    //console.log(`ThemePresetManager: 직접 부모 i18n small에서 라벨 찾음 - ${settingKey} → ${label}`);
                 }
             }
         }
@@ -1830,11 +1830,11 @@ function createAdvancedSettingsUI() {
         }
         
         categorizedSettings[category].push(settingItem);
-        console.log(`ThemePresetManager: 설정 추가됨 - ${settingKey} (${category})`);
+        //console.log(`ThemePresetManager: 설정 추가됨 - ${settingKey} (${category})`);
     });
     
     // 최종 통계 로그
-    console.log('ThemePresetManager: 처리 통계', {
+    //console.log('ThemePresetManager: 처리 통계', {
         총_요소수: allElements.length,
         처리된_요소수: processedCount,
         제외된_요소수: excludedCount,
@@ -1842,7 +1842,7 @@ function createAdvancedSettingsUI() {
         숨겨진_요소_제외: hiddenExcludedCount
     });
     
-    console.log('ThemePresetManager: 카테고리별 설정 수', {
+    //console.log('ThemePresetManager: 카테고리별 설정 수', {
         theme: categorizedSettings.theme.length,
         ui: categorizedSettings.ui.length,
         message: categorizedSettings.message.length,
@@ -1854,7 +1854,7 @@ function createAdvancedSettingsUI() {
         const container = $(`#${containerId}`);
         container.empty();
         
-        console.log(`ThemePresetManager: ${containerId} 컨테이너에 ${settingsArray.length}개 설정 생성`);
+        //console.log(`ThemePresetManager: ${containerId} 컨테이너에 ${settingsArray.length}개 설정 생성`);
         
         settingsArray.forEach(setting => {
             const isChecked = selectedSettings[setting.key] !== false; // 기본값이 true이므로
@@ -1866,7 +1866,7 @@ function createAdvancedSettingsUI() {
                 </div>
             `);
             container.append(item);
-            console.log(`ThemePresetManager: 체크박스 생성됨 - setting_${setting.key} (${isChecked ? 'checked' : 'unchecked'})`);
+            //console.log(`ThemePresetManager: 체크박스 생성됨 - setting_${setting.key} (${isChecked ? 'checked' : 'unchecked'})`);
         });
     }
     
@@ -1876,7 +1876,7 @@ function createAdvancedSettingsUI() {
     createSettingsHTML(categorizedSettings.message, 'ThemePresetManager_messageSettings');
     createSettingsHTML(categorizedSettings.other, 'ThemePresetManager_otherSettings');
     
-    console.log('ThemePresetManager: 상세설정 UI 생성 완료', {
+    //console.log('ThemePresetManager: 상세설정 UI 생성 완료', {
         theme: categorizedSettings.theme.length,
         ui: categorizedSettings.ui.length,
         message: categorizedSettings.message.length,
@@ -1887,10 +1887,10 @@ function createAdvancedSettingsUI() {
 
 // 스마트 자동저장: 기본 설정 초기화 로직
 function initializeDefaultSettingsIfNeeded() {
-    console.log('ThemePresetManager: 스마트 자동저장 - 기본 설정 초기화 시작');
+    //console.log('ThemePresetManager: 스마트 자동저장 - 기본 설정 초기화 시작');
     
     if (hasInitializedDefaultSettings) {
-        console.log('ThemePresetManager: 스마트 자동저장 - 이미 초기화됨, 스킵');
+        //console.log('ThemePresetManager: 스마트 자동저장 - 이미 초기화됨, 스킵');
         return;
     }
     
@@ -1898,7 +1898,7 @@ function initializeDefaultSettingsIfNeeded() {
         const settings = extension_settings[extensionName];
         const currentDefaultSettings = settings.defaultSelectedSettings || {};
         
-        console.log('ThemePresetManager: 스마트 자동저장 - 현재 기본 설정 상태', {
+        //console.log('ThemePresetManager: 스마트 자동저장 - 현재 기본 설정 상태', {
             현재_설정수: Object.keys(currentDefaultSettings).length,
             현재_설정들: Object.keys(currentDefaultSettings)
         });
@@ -2049,7 +2049,7 @@ function initializeDefaultSettingsIfNeeded() {
         const newSettings = ['aux_field', 'background_thumbnails_animation', 'relaxed_api_urls', 'example_messages_behavior', 'auto-load-chat-checkbox'];
         newSettings.forEach(key => domSettingKeys.add(key));
         
-        console.log('ThemePresetManager: 스마트 자동저장 - DOM에서 발견된 설정들', {
+        //console.log('ThemePresetManager: 스마트 자동저장 - DOM에서 발견된 설정들', {
             DOM_설정수: domSettingKeys.size,
             DOM_설정들: Array.from(domSettingKeys)
         });
@@ -2062,23 +2062,23 @@ function initializeDefaultSettingsIfNeeded() {
             if (!(key in updatedDefaultSettings)) {
                 updatedDefaultSettings[key] = false; // 기본적으로 false로 설정
                 addedCount++;
-                console.log(`ThemePresetManager: 스마트 자동저장 - 누락된 설정 추가: ${key} = false`);
+                //console.log(`ThemePresetManager: 스마트 자동저장 - 누락된 설정 추가: ${key} = false`);
             }
         });
         
         if (addedCount > 0) {
             settings.defaultSelectedSettings = updatedDefaultSettings;
             saveSettingsDebounced();
-            console.log('ThemePresetManager: 스마트 자동저장 - 기본 설정 업데이트 완료', {
+            //console.log('ThemePresetManager: 스마트 자동저장 - 기본 설정 업데이트 완료', {
                 추가된_설정수: addedCount,
                 최종_설정수: Object.keys(updatedDefaultSettings).length
             });
         } else {
-            console.log('ThemePresetManager: 스마트 자동저장 - 추가할 설정 없음');
+            //console.log('ThemePresetManager: 스마트 자동저장 - 추가할 설정 없음');
         }
         
         hasInitializedDefaultSettings = true;
-        console.log('ThemePresetManager: 스마트 자동저장 - 초기화 완료');
+        //console.log('ThemePresetManager: 스마트 자동저장 - 초기화 완료');
         
     } catch (error) {
         console.error('ThemePresetManager: 스마트 자동저장 - 초기화 중 오류 발생', error);
@@ -2172,7 +2172,7 @@ function applySpecialSetting(key, value) {
                 }
                 break;
         }
-        console.log(`ThemePresetManager: 특별 설정 적용됨 - ${key}: ${value}`);
+        //console.log(`ThemePresetManager: 특별 설정 적용됨 - ${key}: ${value}`);
     } catch (error) {
         console.warn(`ThemePresetManager: 특별 설정 적용 실패 - ${key}:`, error);
     }
@@ -2228,7 +2228,7 @@ function findPowerUserKey(settingKey) {
 
 // 상세설정에서 선택된 설정들 저장
 function saveSelectedSettings() {
-    console.log('ThemePresetManager: 선택된 설정 임시 저장 시작');
+    //console.log('ThemePresetManager: 선택된 설정 임시 저장 시작');
     
     const selectedSettings = {};
     
@@ -2241,14 +2241,14 @@ function saveSelectedSettings() {
     
     // 임시 변수에만 저장 (영구 저장하지 않음)
     currentSelectedSettings = selectedSettings;
-    console.log('ThemePresetManager: 선택된 설정 임시 저장 완료', selectedSettings);
+    //console.log('ThemePresetManager: 선택된 설정 임시 저장 완료', selectedSettings);
 }
 
 
 
 // 기본 설정을 UI에 로드
 function loadDefaultSettingsToUI() {
-    console.log('ThemePresetManager: 기본 설정을 UI에 로드 시작');
+    //console.log('ThemePresetManager: 기본 설정을 UI에 로드 시작');
     
     const settings = extension_settings[extensionName];
     const defaultSettings = settings.defaultSelectedSettings || defaultSelectedSettings;
@@ -2263,7 +2263,7 @@ function loadDefaultSettingsToUI() {
         if (shouldBeChecked) loadedCount++;
     });
     
-    console.log('ThemePresetManager: 기본 설정을 UI에 로드 완료', { loadedCount, defaultSettings });
+    //console.log('ThemePresetManager: 기본 설정을 UI에 로드 완료', { loadedCount, defaultSettings });
 }
 
 // 기본 설정 모드 토글 (단순히 기본 설정을 UI에 로드)
@@ -2287,7 +2287,7 @@ function saveCurrentSelectionAsDefault() {
     settings.defaultSelectedSettings = defaultSettings;
     saveSettingsDebounced();
     
-    console.log('ThemePresetManager: 현재 선택을 기본으로 저장 완료', defaultSettings);
+    //console.log('ThemePresetManager: 현재 선택을 기본으로 저장 완료', defaultSettings);
     toastr.success('현재 선택된 설정들이 기본 옵션으로 저장되었습니다.');
 }
 
@@ -2296,11 +2296,11 @@ function selectDefaultSettingsOnly() {
     const settings = extension_settings[extensionName];
     const defaultSettings = settings.defaultSelectedSettings || defaultSelectedSettings;
     
-    console.log('ThemePresetManager: 기본 설정만 선택 시작', defaultSettings);
+    //console.log('ThemePresetManager: 기본 설정만 선택 시작', defaultSettings);
     
     // 모든 체크박스 해제
     $('.setting-item input[type="checkbox"]').prop('checked', false);
-    console.log('ThemePresetManager: 모든 체크박스 해제 완료');
+    //console.log('ThemePresetManager: 모든 체크박스 해제 완료');
     
     // 실제로 존재하는 체크박스들 확인
     const existingCheckboxes = $('.setting-item input[type="checkbox"]');
@@ -2308,7 +2308,7 @@ function selectDefaultSettingsOnly() {
         return $(this).attr('id').replace('setting_', '');
     }).get();
     
-    console.log('ThemePresetManager: 실제 존재하는 체크박스들', existingKeys);
+    //console.log('ThemePresetManager: 실제 존재하는 체크박스들', existingKeys);
     
     let selectedCount = 0;
     let notFoundCount = 0;
@@ -2323,7 +2323,7 @@ function selectDefaultSettingsOnly() {
                 checkbox.prop('checked', true);
                 selectedCount++;
                 selectedKeys.push(key);
-                console.log(`ThemePresetManager: 체크박스 선택됨 - setting_${key}`);
+                //console.log(`ThemePresetManager: 체크박스 선택됨 - setting_${key}`);
             } else {
                 console.warn(`ThemePresetManager: 체크박스를 찾을 수 없음 - setting_${key} (UI에 생성되지 않음)`);
                 notFoundCount++;
@@ -2335,7 +2335,7 @@ function selectDefaultSettingsOnly() {
     // 임시 저장
     saveSelectedSettings();
     
-    console.log('ThemePresetManager: 기본 설정만 선택 완료', { 
+    //console.log('ThemePresetManager: 기본 설정만 선택 완료', { 
         selectedCount, 
         notFoundCount, 
         selectedKeys,
@@ -2384,16 +2384,16 @@ function showCurrentSelectedOptions() {
     const selectedCount = Object.keys(selectedSettings).filter(key => selectedSettings[key]).length;
     const totalCount = $('.setting-item input[type="checkbox"]').length;
     
-    console.log(message, selectedSettings);
+    //console.log(message, selectedSettings);
     toastr.info(`${message}\n선택된 설정: ${selectedCount}/${totalCount}개\n자세한 내용은 콘솔을 확인하세요.`);
 }
 
 // 설정 삭제 함수들
 async function deleteAllSettings() {
-    console.log('ThemePresetManager: 모든 설정 삭제 시작');
+    //console.log('ThemePresetManager: 모든 설정 삭제 시작');
     
     if (!confirm('모든 저장된 테마 설정을 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.')) {
-        console.log('ThemePresetManager: 모든 설정 삭제 취소됨');
+        //console.log('ThemePresetManager: 모든 설정 삭제 취소됨');
         return;
     }
     
@@ -2407,13 +2407,13 @@ async function deleteAllSettings() {
     
     // 임시 selectedSettings 초기화
     currentSelectedSettings = null;
-    console.log('ThemePresetManager: currentSelectedSettings 초기화됨 (삭제 후)');
+    //console.log('ThemePresetManager: currentSelectedSettings 초기화됨 (삭제 후)');
     
     // 2. 현재 채팅에서 확장 데이터 삭제
     if (chat_metadata && chat_metadata.extensions && chat_metadata.extensions[extensionName]) {
         delete chat_metadata.extensions[extensionName];
         saveChatDebounced();
-        console.log('ThemePresetManager: 현재 채팅에서 확장 데이터 삭제됨');
+        //console.log('ThemePresetManager: 현재 채팅에서 확장 데이터 삭제됨');
     }
     
     // 3. 모든 로드된 캐릭터에서 확장 데이터 삭제
@@ -2421,7 +2421,7 @@ async function deleteAllSettings() {
     Object.values(characters).forEach(character => {
         if (character.data && character.data.extensions && character.data.extensions[extensionName]) {
             delete character.data.extensions[extensionName];
-            console.log(`ThemePresetManager: 캐릭터 ${character.name}에서 확장 데이터 삭제됨`);
+            //console.log(`ThemePresetManager: 캐릭터 ${character.name}에서 확장 데이터 삭제됨`);
             
             // 서버에 변경사항 저장
             const promise = fetch('/api/characters/merge-attributes', {
@@ -2446,7 +2446,7 @@ async function deleteAllSettings() {
     if (characterDeletePromises.length > 0) {
         try {
             await Promise.all(characterDeletePromises);
-            console.log(`ThemePresetManager: ${characterDeletePromises.length}개 캐릭터에서 확장 데이터 삭제 완료`);
+            //console.log(`ThemePresetManager: ${characterDeletePromises.length}개 캐릭터에서 확장 데이터 삭제 완료`);
         } catch (error) {
             console.error('ThemePresetManager: 캐릭터 데이터 삭제 중 오류', error);
         }
@@ -2493,7 +2493,7 @@ async function deleteAllSettings() {
             
             if (chatDeletePromises.length > 0) {
                 await Promise.all(chatDeletePromises);
-                console.log(`ThemePresetManager: ${chatDeletePromises.length}개 채팅에서 확장 데이터 삭제 시도 완료`);
+                //console.log(`ThemePresetManager: ${chatDeletePromises.length}개 채팅에서 확장 데이터 삭제 시도 완료`);
             }
         }
     } catch (error) {
@@ -2504,7 +2504,7 @@ async function deleteAllSettings() {
     saveSettingsDebounced();
     updateCurrentStatus();
     
-    console.log('ThemePresetManager: 모든 설정 삭제 완료 - 페이지 새로고침 예정');
+    //console.log('ThemePresetManager: 모든 설정 삭제 완료 - 페이지 새로고침 예정');
     toastr.success('모든 테마 설정이 완전히 삭제되었습니다. 페이지가 새로고침됩니다.');
     
     // 페이지 새로고침으로 완전한 초기화
@@ -2514,7 +2514,7 @@ async function deleteAllSettings() {
 }
 
 function deleteChatSettings() {
-    console.log('ThemePresetManager: 채팅 설정 삭제 시작');
+    //console.log('ThemePresetManager: 채팅 설정 삭제 시작');
     
     currentChatId = getCurrentChatId();
     if (!currentChatId) {
@@ -2529,7 +2529,7 @@ function deleteChatSettings() {
             saveSettingsDebounced();
             updateCurrentStatus();
             
-            console.log('ThemePresetManager: 채팅 설정 삭제 완료', currentChatId);
+            //console.log('ThemePresetManager: 채팅 설정 삭제 완료', currentChatId);
             toastr.success('채팅 테마 설정이 삭제되었습니다.');
         }
     } else {
@@ -2538,7 +2538,7 @@ function deleteChatSettings() {
 }
 
 function deleteCharacterSettings() {
-    console.log('ThemePresetManager: 캐릭터 설정 삭제 시작');
+    //console.log('ThemePresetManager: 캐릭터 설정 삭제 시작');
     
     currentCharacterId = getCurrentCharacterId();
     if (!currentCharacterId) {
@@ -2553,7 +2553,7 @@ function deleteCharacterSettings() {
             saveSettingsDebounced();
             updateCurrentStatus();
             
-            console.log('ThemePresetManager: 캐릭터 설정 삭제 완료', currentCharacterId);
+            //console.log('ThemePresetManager: 캐릭터 설정 삭제 완료', currentCharacterId);
             toastr.success('캐릭터 테마 설정이 삭제되었습니다.');
         }
     } else {
@@ -2566,14 +2566,14 @@ function onEnabledChange(event) {
     const value = Boolean($(event.target).prop("checked"));
     extension_settings[extensionName].enabled = value;
     saveSettingsDebounced();
-    console.log('ThemePresetManager: 활성화 상태 변경', value);
+    //console.log('ThemePresetManager: 활성화 상태 변경', value);
 }
 
 function onAutoApplyChange(event) {
     const value = Boolean($(event.target).prop("checked"));
     extension_settings[extensionName].autoApply = value;
     saveSettingsDebounced();
-    console.log('ThemePresetManager: 자동 적용 설정 변경', value);
+    //console.log('ThemePresetManager: 자동 적용 설정 변경', value);
 }
 
 function onCheckCurrentSettings() {
@@ -2581,7 +2581,7 @@ function onCheckCurrentSettings() {
     const themeCount = Object.keys(current.theme).length;
     const settingsCount = Object.keys(current.settings).length;
     
-    console.log('ThemePresetManager: 현재 UI 상태 확인', current);
+    //console.log('ThemePresetManager: 현재 UI 상태 확인', current);
     toastr.info(`현재 UI 상태가 콘솔에 출력되었습니다. (${themeCount}개 테마 + ${settingsCount}개 설정)`);
 }
 
@@ -2622,7 +2622,7 @@ function onCheckSavedSettings() {
     }
     
     if (totalChatThemes === 0 && totalCharacterThemes === 0) {
-        console.log('저장된 테마가 없습니다.');
+        //console.log('저장된 테마가 없습니다.');
         toastr.info('저장된 테마가 없습니다.');
     } else {
         toastr.info(`전체 저장된 테마 목록이 콘솔에 출력되었습니다. (채팅: ${totalChatThemes}개, 캐릭터: ${totalCharacterThemes}개)`);
@@ -2646,7 +2646,7 @@ async function onSaveToChat() {
 async function onSaveToCharacter() {
     currentCharacterId = getCurrentCharacterId();
     
-    console.log('ThemePresetManager: 캐릭터 저장 시도', { currentCharacterId });
+    //console.log('ThemePresetManager: 캐릭터 저장 시도', { currentCharacterId });
     
     if (!currentCharacterId) {
         toastr.error('저장할 캐릭터가 선택되지 않았습니다. 현재 선택된 캐릭터를 확인해주세요.');
@@ -2720,12 +2720,12 @@ function onShowAdvancedSettings() {
         panel.hide();
         $("#ThemePresetManager_showAdvanced").text("상세설정");
         saveInfo.html('💡 <strong>저장 방식:</strong> 상세설정 패널이 열려있으면 선택된 설정만, 닫혀있으면 모든 설정이 저장됩니다.');
-        console.log('ThemePresetManager: 상세설정 패널 닫힘');
+        //console.log('ThemePresetManager: 상세설정 패널 닫힘');
     } else {
         // 상세설정 패널 열기
         panel.show();
         $("#ThemePresetManager_showAdvanced").text("상세설정 숨기기");
-        console.log('ThemePresetManager: 상세설정 패널 열림 - 최신 상태로 UI 생성 시작');
+        //console.log('ThemePresetManager: 상세설정 패널 열림 - 최신 상태로 UI 생성 시작');
         
         // 스마트 자동저장: 기본 설정 초기화 먼저 실행
         initializeDefaultSettingsIfNeeded();
@@ -2735,17 +2735,17 @@ function onShowAdvancedSettings() {
         
         // currentSelectedSettings가 없으면 기본옵션 적용
         if (!currentSelectedSettings) {
-            console.log('ThemePresetManager: currentSelectedSettings가 없어 기본옵션 적용');
+            //console.log('ThemePresetManager: currentSelectedSettings가 없어 기본옵션 적용');
             // UI 생성 후 기본값 설정
             setTimeout(() => {
                 selectDefaultSettingsOnly();
             }, 100);
         } else {
-            console.log('ThemePresetManager: 기존 currentSelectedSettings 사용', currentSelectedSettings);
+            //console.log('ThemePresetManager: 기존 currentSelectedSettings 사용', currentSelectedSettings);
         }
         
         saveInfo.html('💡 <strong>저장 방식:</strong> <span style="color: #4CAF50;">상세설정 패널이 열려있어 선택된 설정만 저장됩니다.</span>');
-        console.log('ThemePresetManager: 상세설정 패널 열림 - 임시 설정 모드', {
+        //console.log('ThemePresetManager: 상세설정 패널 열림 - 임시 설정 모드', {
             hasCurrentSelected: !!currentSelectedSettings
         });
     }
@@ -2769,12 +2769,12 @@ function onResetToDefaultSettings() {
     
     // 임시 selectedSettings 초기화
     currentSelectedSettings = null;
-    console.log('ThemePresetManager: 설정을 기본값으로 초기화 - currentSelectedSettings 초기화됨');
+    //console.log('ThemePresetManager: 설정을 기본값으로 초기화 - currentSelectedSettings 초기화됨');
     
     saveSettingsDebounced();
     createAdvancedSettingsUI();
     toastr.success('설정이 기본값으로 초기화되었습니다.');
-    console.log('ThemePresetManager: 설정을 기본값으로 초기화', defaultSelectedSettings);
+    //console.log('ThemePresetManager: 설정을 기본값으로 초기화', defaultSelectedSettings);
 }
 
 // 새로운 기본 설정 관련 이벤트 핸들러들
@@ -2797,7 +2797,7 @@ function onShowCurrentSelectedOptions() {
 function onUseDefaultSettingsOnlyChange(event) {
     // 기본옵션 사용 기능 완전 중단 (스마트 자동저장으로 대체)
     //toastr.warning('이 기능은 스마트 자동저장으로 대체되어 더 이상 사용되지 않습니다.');
-    console.log('ThemePresetManager: 기본옵션 사용 기능 중단됨 - 스마트 자동저장으로 대체');
+    //console.log('ThemePresetManager: 기본옵션 사용 기능 중단됨 - 스마트 자동저장으로 대체');
     return;
 }
 
@@ -2844,28 +2844,28 @@ function onOverwriteAutoSlot() {
 
 // 현재 설정으로 동기화 함수
 function onSyncCurrentSettings() {
-    console.log('ThemePresetManager: 현재 설정으로 동기화 시작');
+    //console.log('ThemePresetManager: 현재 설정으로 동기화 시작');
     
     if (!$("#ThemePresetManager_advancedPanel").is(":visible")) {
         console.warn('ThemePresetManager: 상세설정 패널이 닫혀있어 동기화를 건너뜀');
         return;
     }
     
-    console.log('ThemePresetManager: 상세설정 UI를 최신 상태로 재생성');
+    //console.log('ThemePresetManager: 상세설정 UI를 최신 상태로 재생성');
     createAdvancedSettingsUI();
     
     // 동기화 완료 메시지
     toastr.success('현재 설정으로 동기화되었습니다.');
-    console.log('ThemePresetManager: 현재 설정으로 동기화 완료');
+    //console.log('ThemePresetManager: 현재 설정으로 동기화 완료');
 }
 
 // 배경 관련 함수들
 function getCurrentBackground() {
-    console.log('ThemePresetManager: 정확한 배경 정보 수집 시작');
+    //console.log('ThemePresetManager: 정확한 배경 정보 수집 시작');
     
     // 1. 채팅 전용 배경 우선 확인 (가장 높은 우선순위)
     const chatSpecificBackgroundUrl = chat_metadata['custom_background'];
-    console.log('ThemePresetManager: 채팅 전용 배경 URL 확인', chatSpecificBackgroundUrl);
+    //console.log('ThemePresetManager: 채팅 전용 배경 URL 확인', chatSpecificBackgroundUrl);
     
     if (chatSpecificBackgroundUrl) {
         const pathMatch = chatSpecificBackgroundUrl.match(/url\("(.+?)"\)/);
@@ -2880,14 +2880,14 @@ function getCurrentBackground() {
                     isChatSpecific: true,
                     isLocked: true // 캐릭터 잠금 상태임을 명시
                 };
-                console.log('ThemePresetManager: 채팅 전용 배경 정보 발견 (정규화됨)', bg);
+                //console.log('ThemePresetManager: 채팅 전용 배경 정보 발견 (정규화됨)', bg);
                 return bg;
             }
         }
     }
     
     // 2. 시스템 기본 배경 확인
-    console.log('ThemePresetManager: background_settings 객체 확인', background_settings);
+    //console.log('ThemePresetManager: background_settings 객체 확인', background_settings);
     if (background_settings && background_settings.name) {
         const normalizedPath = normalizeBackgroundPath(background_settings.name);
         
@@ -2898,7 +2898,7 @@ function getCurrentBackground() {
                 isChatSpecific: false,
                 isLocked: false // 시스템 배경은 잠금 상태가 아님
             };
-            console.log('ThemePresetManager: 시스템 기본 배경 정보 발견 (정규화됨)', bg);
+            //console.log('ThemePresetManager: 시스템 기본 배경 정보 발견 (정규화됨)', bg);
             return bg;
         }
     }
@@ -2923,7 +2923,7 @@ function getCurrentBackground() {
                         isChatSpecific: false,
                         isLocked: false // DOM에서 읽은 배경도 잠금 상태가 아님
                     };
-                    console.log('ThemePresetManager: DOM에서 읽은 배경 정보 (정규화됨)', bg);
+                    //console.log('ThemePresetManager: DOM에서 읽은 배경 정보 (정규화됨)', bg);
                     return bg;
                 }
             }
@@ -2941,7 +2941,7 @@ function setCurrentBackground(imagePath, style = 'classic', lockBackground = fal
         console.error('ThemePresetManager: 배경으로 설정할 이미지 경로가 필요합니다.');
         return;
     }
-    console.log(`ThemePresetManager: 배경 변경 시작`, { imagePath, style, lockBackground });
+    //console.log(`ThemePresetManager: 배경 변경 시작`, { imagePath, style, lockBackground });
 
     // 경로 정규화
     const normalizedPath = normalizeBackgroundPath(imagePath);
@@ -2950,7 +2950,7 @@ function setCurrentBackground(imagePath, style = 'classic', lockBackground = fal
         return;
     }
     
-    console.log('ThemePresetManager: 정규화된 배경 경로', { original: imagePath, normalized: normalizedPath });
+    //console.log('ThemePresetManager: 정규화된 배경 경로', { original: imagePath, normalized: normalizedPath });
 
     // 배경 URL 생성 (안전한 방식)
     let url;
@@ -2964,7 +2964,7 @@ function setCurrentBackground(imagePath, style = 'classic', lockBackground = fal
         const encodedFileName = encodeURIComponent(fileName);
         url = `url("backgrounds/${encodedFileName}")`;
         
-        console.log('ThemePresetManager: 배경 URL 생성 성공', { 
+        //console.log('ThemePresetManager: 배경 URL 생성 성공', { 
             fileName, 
             encodedFileName, 
             url,
@@ -2978,18 +2978,18 @@ function setCurrentBackground(imagePath, style = 'classic', lockBackground = fal
     if (lockBackground) {
         // 1. 캐릭터 잠금 배경으로 설정 (기존 방식)
         chat_metadata['custom_background'] = url;
-        console.log('ThemePresetManager: 캐릭터 잠금 배경 설정됨', url);
+        //console.log('ThemePresetManager: 캐릭터 잠금 배경 설정됨', url);
     } else {
         // 2. 잠금 없이 배경만 변경 (새로운 방식)
         // custom_background는 설정하지 않고 직접 배경만 변경
-        console.log('ThemePresetManager: 잠금 없이 배경만 변경', url);
+        //console.log('ThemePresetManager: 잠금 없이 배경만 변경', url);
         
         // 직접 배경 요소에 적용
         $('#bg_custom').css('background-image', url);
     }
     
     // 3. 시스템 배경은 건드리지 않음 (전체 배경 변경 방지)
-    console.log('ThemePresetManager: 시스템 배경은 변경하지 않음 (캐릭터별 배경만 적용)');
+    //console.log('ThemePresetManager: 시스템 배경은 변경하지 않음 (캐릭터별 배경만 적용)');
     
     // 4. FORCE_SET_BACKGROUND 이벤트를 발생시켜 배경 변경을 요청합니다.
     eventSource.emit(event_types.FORCE_SET_BACKGROUND, { url: url, path: normalizedPath });
@@ -3008,7 +3008,7 @@ function setCurrentBackground(imagePath, style = 'classic', lockBackground = fal
     // 6. 설정 저장
     saveSettingsDebounced();
     
-    console.log('ThemePresetManager: 배경 변경 완료', { 
+    //console.log('ThemePresetManager: 배경 변경 완료', { 
         originalPath: imagePath, 
         normalizedPath: normalizedPath, 
         finalUrl: url,
@@ -3024,7 +3024,7 @@ function normalizeBackgroundPath(path) {
         return null;
     }
     
-    console.log('ThemePresetManager: 배경 경로 정규화 시작', { originalPath: path });
+    //console.log('ThemePresetManager: 배경 경로 정규화 시작', { originalPath: path });
     
     // URL 디코딩
     let normalizedPath = decodeURIComponent(path);
@@ -3035,22 +3035,22 @@ function normalizeBackgroundPath(path) {
     // backgrounds/ 중복 제거
     if (normalizedPath.startsWith('backgrounds/backgrounds/')) {
         normalizedPath = normalizedPath.replace('backgrounds/backgrounds/', 'backgrounds/');
-        console.log('ThemePresetManager: 중복 backgrounds/ 제거됨', { before: path, after: normalizedPath });
+        //console.log('ThemePresetManager: 중복 backgrounds/ 제거됨', { before: path, after: normalizedPath });
     }
     
     // backgrounds/로 시작하지 않으면 추가
     if (!normalizedPath.startsWith('backgrounds/')) {
         normalizedPath = `backgrounds/${normalizedPath}`;
-        console.log('ThemePresetManager: backgrounds/ 접두사 추가됨', { before: path, after: normalizedPath });
+        //console.log('ThemePresetManager: backgrounds/ 접두사 추가됨', { before: path, after: normalizedPath });
     }
     
     // 파일명에 .jpg가 중복으로 붙은 경우 제거
     if (normalizedPath.match(/\.jpg\.jpg$/)) {
         normalizedPath = normalizedPath.replace(/\.jpg\.jpg$/, '.jpg');
-        console.log('ThemePresetManager: 중복 .jpg 확장자 제거됨', { before: path, after: normalizedPath });
+        //console.log('ThemePresetManager: 중복 .jpg 확장자 제거됨', { before: path, after: normalizedPath });
     }
     
-    console.log('ThemePresetManager: 배경 경로 정규화 완료', { 
+    //console.log('ThemePresetManager: 배경 경로 정규화 완료', { 
         originalPath: path, 
         normalizedPath: normalizedPath,
         isChanged: path !== normalizedPath
@@ -3061,7 +3061,7 @@ function normalizeBackgroundPath(path) {
 
 // 메인 초기화 함수
 jQuery(async () => {
-    console.log('ThemePresetManager: 확장 로드 시작');
+    //console.log('ThemePresetManager: 확장 로드 시작');
     
     // 이것은 파일에서 HTML을 로드하는 ExtStQRControl입니다.
     const settingsHtml = await $.get(`${extensionFolderPath}/index.html`);
@@ -3079,7 +3079,7 @@ jQuery(async () => {
     $("#ThemePresetManager_checkSaved").on("click", onCheckSavedSettings);
     
     // 디버그용: 현재 배경 정보 확인 (개발 중에만 사용)
-    console.log('ThemePresetManager: 현재 배경 정보 확인', getCurrentBackground());
+    //console.log('ThemePresetManager: 현재 배경 정보 확인', getCurrentBackground());
     $("#ThemePresetManager_saveToChat").on("click", onSaveToChat);
     $("#ThemePresetManager_saveToCharacter").on("click", onSaveToCharacter);
     $("#ThemePresetManager_loadFromChat").on("click", onLoadFromChat);
@@ -3130,7 +3130,7 @@ jQuery(async () => {
     // SillyTavern 내장 이벤트 시스템 사용
     // 채팅 변경 이벤트
     eventSource.on(event_types.CHAT_CHANGED, function(chatId) {
-        console.log('ThemePresetManager: 채팅 변경 감지 (내장 이벤트)', chatId);
+        //console.log('ThemePresetManager: 채팅 변경 감지 (내장 이벤트)', chatId);
         setTimeout(() => {
             updateCurrentStatus();
             if (extension_settings[extensionName].autoApply) {
@@ -3139,7 +3139,7 @@ jQuery(async () => {
             
             // 상세설정 패널이 열려있으면 실시간 업데이트
             if ($("#ThemePresetManager_advancedPanel").is(":visible")) {
-                console.log('ThemePresetManager: 상세설정 패널이 열려있어 실시간 업데이트 실행');
+                //console.log('ThemePresetManager: 상세설정 패널이 열려있어 실시간 업데이트 실행');
                 createAdvancedSettingsUI();
             }
         }, 100);
@@ -3147,7 +3147,7 @@ jQuery(async () => {
     
     // 새 채팅 생성 이벤트
     eventSource.on(event_types.CHAT_CREATED, function() {
-        console.log('ThemePresetManager: 새 채팅 생성 감지 (내장 이벤트)');
+        //console.log('ThemePresetManager: 새 채팅 생성 감지 (내장 이벤트)');
         setTimeout(() => {
             updateCurrentStatus();
             if (extension_settings[extensionName].autoApply) {
@@ -3156,7 +3156,7 @@ jQuery(async () => {
             
             // 상세설정 패널이 열려있으면 실시간 업데이트
             if ($("#ThemePresetManager_advancedPanel").is(":visible")) {
-                console.log('ThemePresetManager: 상세설정 패널이 열려있어 실시간 업데이트 실행');
+                //console.log('ThemePresetManager: 상세설정 패널이 열려있어 실시간 업데이트 실행');
                 createAdvancedSettingsUI();
             }
         }, 100);
@@ -3164,7 +3164,7 @@ jQuery(async () => {
     
     // 채팅 삭제 이벤트
     eventSource.on(event_types.CHAT_DELETED, function(chatName) {
-        console.log('ThemePresetManager: 채팅 삭제 감지 (내장 이벤트)', chatName);
+        //console.log('ThemePresetManager: 채팅 삭제 감지 (내장 이벤트)', chatName);
         setTimeout(() => {
             updateCurrentStatus();
         }, 100);
@@ -3172,7 +3172,7 @@ jQuery(async () => {
     
     // 캐릭터 선택 이벤트 (내장 이벤트 사용)
     eventSource.on('character_selected', function() {
-        console.log('ThemePresetManager: 캐릭터 변경 감지 (내장 이벤트)');
+        //console.log('ThemePresetManager: 캐릭터 변경 감지 (내장 이벤트)');
         setTimeout(() => {
             updateCurrentStatus();
             if (extension_settings[extensionName].autoApply) {
@@ -3181,7 +3181,7 @@ jQuery(async () => {
             
             // 상세설정 패널이 열려있으면 실시간 업데이트
             if ($("#ThemePresetManager_advancedPanel").is(":visible")) {
-                console.log('ThemePresetManager: 상세설정 패널이 열려있어 실시간 업데이트 실행');
+                //console.log('ThemePresetManager: 상세설정 패널이 열려있어 실시간 업데이트 실행');
                 createAdvancedSettingsUI();
             }
         }, 100);
@@ -3189,7 +3189,7 @@ jQuery(async () => {
     
     // 앱 준비 완료 이벤트
     eventSource.on(event_types.APP_READY, function() {
-        console.log('ThemePresetManager: 앱 준비 완료 감지');
+        //console.log('ThemePresetManager: 앱 준비 완료 감지');
         setTimeout(() => {
             updateCurrentStatus();
             if (extension_settings[extensionName].autoApply) {
@@ -3200,7 +3200,7 @@ jQuery(async () => {
     
     // 설정 로드 완료 이벤트
     eventSource.on(event_types.SETTINGS_LOADED_AFTER, function() {
-        console.log('ThemePresetManager: 설정 로드 완료 감지');
+        //console.log('ThemePresetManager: 설정 로드 완료 감지');
         setTimeout(() => {
             updateCurrentStatus();
             if (extension_settings[extensionName].autoApply) {
@@ -3209,7 +3209,7 @@ jQuery(async () => {
             
             // 상세설정 패널이 열려있으면 실시간 업데이트
             if ($("#ThemePresetManager_advancedPanel").is(":visible")) {
-                console.log('ThemePresetManager: 상세설정 패널이 열려있어 실시간 업데이트 실행');
+                //console.log('ThemePresetManager: 상세설정 패널이 열려있어 실시간 업데이트 실행');
                 createAdvancedSettingsUI();
             }
         }, 100);
@@ -3217,11 +3217,11 @@ jQuery(async () => {
     
     // 배경 변경 감지 이벤트 (상세설정 패널이 열려있을 때만)
     eventSource.on(event_types.FORCE_SET_BACKGROUND, function(backgroundInfo) {
-        console.log('ThemePresetManager: 배경 변경 감지', backgroundInfo);
+        //console.log('ThemePresetManager: 배경 변경 감지', backgroundInfo);
         
         // 상세설정 패널이 열려있을 때만 업데이트
         if ($("#ThemePresetManager_advancedPanel").is(":visible")) {
-            console.log('ThemePresetManager: 상세설정 패널이 열려있어 배경 변경 후 업데이트 실행');
+            //console.log('ThemePresetManager: 상세설정 패널이 열려있어 배경 변경 후 업데이트 실행');
             setTimeout(() => {
                 createAdvancedSettingsUI();
             }, 200); // 배경 변경 완료 후 약간의 지연을 두고 업데이트
@@ -3241,7 +3241,7 @@ jQuery(async () => {
 
 // 캐릭터 설정 내보내기 함수
 function exportCharacterSettings() {
-    console.log('ThemePresetManager: 캐릭터 설정 내보내기 시작');
+    //console.log('ThemePresetManager: 캐릭터 설정 내보내기 시작');
     
     const settings = extension_settings[extensionName];
     const currentCharacterId = getCurrentCharacterId();
@@ -3283,7 +3283,7 @@ function exportCharacterSettings() {
 
 // 채팅 설정 내보내기 함수
 function exportChatSettings() {
-    console.log('ThemePresetManager: 채팅 설정 내보내기 시작');
+    //console.log('ThemePresetManager: 채팅 설정 내보내기 시작');
     
     const currentChatId = getCurrentChatId();
     const currentChatName = getCurrentChatName();
@@ -3324,7 +3324,7 @@ function exportChatSettings() {
 
 // 캐릭터/채팅 설정 가져오기 함수
 function importSpecificSettings(file) {
-    console.log('ThemePresetManager: 특정 설정 가져오기 시작');
+    //console.log('ThemePresetManager: 특정 설정 가져오기 시작');
     
     const reader = new FileReader();
     reader.onload = function(e) {
@@ -3348,7 +3348,7 @@ function importSpecificSettings(file) {
                 `취소: 대체 모드 (기존 설정을 완전히 덮어쓰기)`
             );
             
-            console.log('ThemePresetManager: 특정 설정 가져오기 방식 선택됨', { 
+            //console.log('ThemePresetManager: 특정 설정 가져오기 방식 선택됨', { 
                 type: importData.type, 
                 isMergeMode 
             });
