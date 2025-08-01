@@ -6,23 +6,23 @@
             <div class="inline-drawer-icon fa-solid fa-circle-chevron-down down"></div>
         </div>
         <div class="inline-drawer-content">
-            <!-- 확장 활성화/비활성화 -->
+            <!-- 확장 활성화/비활성화 --><!--
             <div class="ThemePresetManager-extension_block flex-container">
                 <input id="ThemePresetManager_enabled" type="checkbox" />
                 <label for="ThemePresetManager_enabled" data-i18n="Enable Extension">확장 활성화</label>
-            </div>
+            </div>-->
 
             <!-- 자동 테마 적용 설정 -->
             <div class="ThemePresetManager-extension_block flex-container">
                 <input id="ThemePresetManager_autoApply" type="checkbox" />
-                <label for="ThemePresetManager_autoApply" data-i18n="Auto Apply Theme">자동 테마 적용</label>
+                <label for="ThemePresetManager_autoApply" data-i18n="Auto Apply Theme">저장된 테마 자동 적용</label>
             </div>
 
-            <!-- 기본 옵션 사용 설정 (일시적으로 비활성화) -->
+            <!-- 기본 옵션 사용 설정 (일시적으로 비활성화) --><!--
             <div class="ThemePresetManager-extension_block flex-container" style="opacity: 0.5; pointer-events: none;">
                 <input id="ThemePresetManager_useDefaultSettingsOnly" type="checkbox" disabled />
                 <label for="ThemePresetManager_useDefaultSettingsOnly" style="color: var(--SmartThemeBodyColor); opacity: 0.7;">기본 옵션만 사용 (개발 중)</label>
-            </div>
+            </div>-->
 
             <hr class="sysHR" />
 
@@ -67,10 +67,10 @@
                         <h6 style="margin: 0 0 10px 0; color: var(--SmartThemeBodyColor); border-bottom: 1px solid var(--SmartThemeBorderColor); padding-bottom: 5px;">기본 옵션 관리</h6>
                         <div style="margin-bottom: 10px;">
                             <button id="ThemePresetManager_saveAsDefault" class="menu_button" type="button" style="margin-right: 10px;">현재 선택을 기본으로 저장</button>
-                            <button id="ThemePresetManager_showCurrentOptions" class="menu_button" type="button" style="margin-right: 10px;">현재 선택된 옵션 보기 (디버그)</button>
+                            <button id="ThemePresetManager_showCurrentOptions" class="menu_button" type="button" style="margin-right: 10px; visibility: hidden;">현재 선택된 옵션 보기 (디버그)</button>
                         </div>
                         <div style="font-size: 0.9em; color: var(--SmartThemeBodyColor);">
-                            💡 <strong>기본 옵션:</strong> "현재 선택을 기본으로 저장" 버튼으로 현재 체크된 설정들을 기본값으로 설정할 수 있습니다. "현재 선택된 옵션 보기"는 디버그용입니다.
+                            💡 <strong>기본 옵션:</strong> "현재 선택을 기본으로 저장" 버튼으로 현재 체크된 설정들을 기본값으로 설정할 수 있습니다. <!--"현재 선택된 옵션 보기"는 디버그용입니다.-->
                         </div>
                     </div>
                     
@@ -111,7 +111,7 @@
                         <button id="ThemePresetManager_selectAll" class="menu_button" type="button" style="margin-right: 10px;">전체 선택</button>
                         <button id="ThemePresetManager_deselectAll" class="menu_button" type="button" style="margin-right: 10px;">전체 해제</button>
                         <button id="ThemePresetManager_selectDefaultOnly" class="menu_button" type="button" style="margin-right: 10px;">기본옵션만 선택</button>
-                        <button id="ThemePresetManager_resetToDefault" class="menu_button" type="button">기본값으로 초기화</button>
+                        <!--<button id="ThemePresetManager_resetToDefault" class="menu_button" type="button">기본값으로 초기화</button>-->
                     </div>
                 </div>
             </div>
@@ -152,13 +152,13 @@
 
             <hr class="sysHR" />
 
-            <!-- 설정 확인 버튼들 -->
+            <!-- 설정 확인 버튼들 --><!--
             <div class="ThemePresetManager-extension_block flex-container">
                 <button id="ThemePresetManager_checkCurrent" class="menu_button" type="button" data-i18n="Check Current Settings">현재 UI 상태 확인</button>
                 <button id="ThemePresetManager_checkSaved" class="menu_button" type="button" data-i18n="Check Saved Settings">전체 저장된 테마 목록 확인</button>
             </div>
 
-            <hr class="sysHR" />
+            <hr class="sysHR" />-->
 
             <!-- 내보내기/가져오기 -->
             <div class="ThemePresetManager-extension_block">
