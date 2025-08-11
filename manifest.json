@@ -7,11 +7,12 @@
     "js": "index.js",
     "css": "style.css",
     "author": "nonameaaai",
-    "version": "1.0.1",
+    "version": "1.1.0",
     "homePage": "https://github.com/nonameaaai/ThemePresetManager",
     "license": "AGPL-3.0",
     "auto_update": true,
     "i18n": {
+        "en": "i18n/en.json",
         "ko-kr": "i18n/ko-kr.json"
     }
 }

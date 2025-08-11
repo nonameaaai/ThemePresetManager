@@ -2,7 +2,7 @@
 <div class="ThemePresetManager-extension-settings">
     <div class="inline-drawer">
         <div class="inline-drawer-toggle inline-drawer-header">
-            <b data-i18n="ThemePresetManager Extension">테마 프리셋 관리자</b>
+            <b data-i18n="Theme Preset Manager">Theme Preset Manager</b>
             <div class="inline-drawer-icon fa-solid fa-circle-chevron-down down"></div>
         </div>
         <div class="inline-drawer-content">
@@ -15,7 +15,7 @@
             <!-- 자동 테마 적용 설정 -->
             <div class="ThemePresetManager-extension_block flex-container">
                 <input id="ThemePresetManager_autoApply" type="checkbox" />
-                <label for="ThemePresetManager_autoApply" data-i18n="Auto Apply Theme">저장된 테마 자동 적용</label>
+                <label for="ThemePresetManager_autoApply" data-i18n="Auto Apply Saved Theme">Auto Apply Saved Theme</label>
             </div>
 
             <!-- 기본 옵션 사용 설정 (일시적으로 비활성화) --><!--
@@ -28,107 +28,98 @@
 
             <!-- 현재 저장 상태 표시 -->
             <div class="ThemePresetManager-extension_block">
-                <h4 data-i18n="Current Status">현재 저장 상태</h4>
-                <div id="ThemePresetManager_chatStatus" class="status-display">
-                    <!-- 채팅 저장 상태가 여기에 표시됩니다 -->
-                </div>
-                <div id="ThemePresetManager_characterStatus" class="status-display">
-                    <!-- 캐릭터 저장 상태가 여기에 표시됩니다 -->
-                </div>
+                <h4 data-i18n="Current Status">Current Status</h4>
+                <div id="ThemePresetManager_chatStatus" class="status-display"></div>
+                <div id="ThemePresetManager_characterStatus" class="status-display"></div>
             </div>
 
             <hr class="sysHR" />
 
             <!-- 수동 저장 섹션 -->
             <div class="ThemePresetManager-extension_block">
-                <h4 data-i18n="Manual Save">수동 저장</h4>
+                <h4 data-i18n="Manual Save">Manual Save</h4>
                 <div class="flex-container">
-                    <button id="ThemePresetManager_saveToChat" class="menu_button" type="button" data-i18n="Save to Chat">채팅에 저장</button>
-                    <button id="ThemePresetManager_saveToCharacter" class="menu_button" type="button" data-i18n="Save to Character">캐릭터에 저장</button>
+                    <button id="ThemePresetManager_saveToChat" class="menu_button" type="button" data-i18n="Save to Chat">Save to Chat</button>
+                    <button id="ThemePresetManager_saveToCharacter" class="menu_button" type="button" data-i18n="Save to Character">Save to Character</button>
                 </div>
                 <div id="ThemePresetManager_saveInfo" style="margin: 10px 0; padding: 10px; background-color: var(--SmartThemeBlurColor); border: 1px solid var(--SmartThemeBorderColor); border-radius: 4px; font-size: 0.9em;">
-                    💡 <strong>저장 방식:</strong> 상세설정 패널이 열려있으면 선택된 설정만, 닫혀있으면 모든 설정이 저장됩니다.
+                    💡 
+                    <strong data-i18n="Save Method:">Save Method:</strong>
+                    <span data-i18n="Saves only selected settings if the advanced panel is open, otherwise saves all settings.">Saves only selected settings if the advanced panel is open, otherwise saves all settings.</span>
                 </div>
-                
+
                 <!-- 상세설정 탭 -->
                 <div style="margin-top: 15px;">
-                    <button id="ThemePresetManager_showAdvanced" class="menu_button" type="button" data-i18n="Advanced Settings">상세설정</button>
+                    <button id="ThemePresetManager_showAdvanced" class="menu_button" type="button" data-i18n="Advanced Settings">Advanced Settings</button>
                 </div>
-                
+
                 <!-- 상세설정 패널 (기본적으로 숨김) -->
                 <div id="ThemePresetManager_advancedPanel" style="display: none; margin-top: 15px; padding: 15px; border: 1px solid var(--SmartThemeBorderColor); border-radius: 8px; background-color: var(--SmartThemeBlurColor);">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-                        <h5 style="margin: 0; color: var(--SmartThemeBodyColor);">저장할 설정 선택</h5>
-                        <button id="ThemePresetManager_syncCurrentSettings" class="menu_button" type="button" style="background-color: #2196F3; color: white; font-size: 0.9em;">현재 설정으로 동기화</button>
+                        <h5 style="margin: 0; color: var(--SmartThemeBodyColor);" data-i18n="Select Settings to Save">Select Settings to Save</h5>
+                        <button id="ThemePresetManager_syncCurrentSettings" class="menu_button" type="button" style="background-color: #2196F3; color: white; font-size: 0.9em;" data-i18n="Sync with Current Settings">Sync with Current Settings</button>
                     </div>
-                    
+
                     <!-- 기본 옵션 관리 섹션 -->
                     <div style="margin-bottom: 20px; padding: 15px; border: 1px solid var(--SmartThemeBorderColor); border-radius: 6px; background-color: var(--SmartThemeBlurColor);">
-                        <h6 style="margin: 0 0 10px 0; color: var(--SmartThemeBodyColor); border-bottom: 1px solid var(--SmartThemeBorderColor); padding-bottom: 5px;">기본 옵션 관리</h6>
+                        <h6 style="margin: 0 0 10px 0; color: var(--SmartThemeBodyColor); border-bottom: 1px solid var(--SmartThemeBorderColor); padding-bottom: 5px;" data-i18n="Default Options Management">Default Options Management</h6>
                         <div style="margin-bottom: 10px;">
-                            <button id="ThemePresetManager_saveAsDefault" class="menu_button" type="button" style="margin-right: 10px;">현재 선택을 기본으로 저장</button>
-                            <button id="ThemePresetManager_showCurrentOptions" class="menu_button" type="button" style="margin-right: 10px; visibility: hidden;">현재 선택된 옵션 보기 (디버그)</button>
+                            <button id="ThemePresetManager_saveAsDefault" class="menu_button" type="button" style="margin-right: 10px;" data-i18n="Save Current as Default">Save Current as Default</button>
                         </div>
                         <div style="font-size: 0.9em; color: var(--SmartThemeBodyColor);">
-                            💡 <strong>기본 옵션:</strong> "현재 선택을 기본으로 저장" 버튼으로 현재 체크된 설정들을 기본값으로 설정할 수 있습니다. <!--"현재 선택된 옵션 보기"는 디버그용입니다.-->
+                            💡 
+                            <strong data-i18n="Default Options:">Default Options:</strong>
+                            <span data-i18n="You can set the currently checked settings as the default using the 'Save Current as Default' button.">You can set the currently checked settings as the default using the 'Save Current as Default' button.</span>
                         </div>
                     </div>
-                    
-                    <!-- 테마 설정 섹션 -->
+
+                    <!-- 설정 섹션들 -->
                     <div class="settings-section">
-                        <h6 style="margin: 0 0 10px 0; color: var(--SmartThemeBodyColor); border-bottom: 1px solid var(--SmartThemeBorderColor); padding-bottom: 5px;">테마 설정</h6>
-                        <div id="ThemePresetManager_themeSettings" class="settings-grid">
-                            <!-- 테마 설정 체크박스들이 여기에 동적으로 생성됩니다 -->
-                        </div>
+                        <h6 style="margin: 0 0 10px 0; color: var(--SmartThemeBodyColor); border-bottom: 1px solid var(--SmartThemeBorderColor); padding-bottom: 5px;" data-i18n="Theme Settings">Theme Settings</h6>
+                        <div id="ThemePresetManager_themeSettings" class="settings-grid"></div>
                     </div>
                     
                     <!-- UI 설정 섹션 -->
                     <div class="settings-section">
-                        <h6 style="margin: 0 0 10px 0; color: var(--SmartThemeBodyColor); border-bottom: 1px solid var(--SmartThemeBorderColor); padding-bottom: 5px;">UI 설정</h6>
-                        <div id="ThemePresetManager_uiSettings" class="settings-grid">
-                            <!-- UI 설정 체크박스들이 여기에 동적으로 생성됩니다 -->
-                        </div>
+                        <h6 style="margin: 0 0 10px 0; color: var(--SmartThemeBodyColor); border-bottom: 1px solid var(--SmartThemeBorderColor); padding-bottom: 5px;" data-i18n="UI Settings">UI Settings</h6>
+                        <div id="ThemePresetManager_uiSettings" class="settings-grid"></div>
                     </div>
                     
                     <!-- 메시지 설정 섹션 -->
                     <div class="settings-section">
-                        <h6 style="margin: 0 0 10px 0; color: var(--SmartThemeBodyColor); border-bottom: 1px solid var(--SmartThemeBorderColor); padding-bottom: 5px;">메시지 설정</h6>
-                        <div id="ThemePresetManager_messageSettings" class="settings-grid">
-                            <!-- 메시지 설정 체크박스들이 여기에 동적으로 생성됩니다 -->
-                        </div>
+                        <h6 style="margin: 0 0 10px 0; color: var(--SmartThemeBodyColor); border-bottom: 1px solid var(--SmartThemeBorderColor); padding-bottom: 5px;" data-i18n="Message Settings">Message Settings</h6>
+                        <div id="ThemePresetManager_messageSettings" class="settings-grid"></div>
                     </div>
                     
                     <!-- 기타 설정 섹션 -->
                     <div class="settings-section">
-                        <h6 style="margin: 0 0 10px 0; color: var(--SmartThemeBodyColor); border-bottom: 1px solid var(--SmartThemeBorderColor); padding-bottom: 5px;">기타 설정</h6>
-                        <div id="ThemePresetManager_otherSettings" class="settings-grid">
-                            <!-- 기타 설정 체크박스들이 여기에 동적으로 생성됩니다 -->
-                        </div>
+                        <h6 style="margin: 0 0 10px 0; color: var(--SmartThemeBodyColor); border-bottom: 1px solid var(--SmartThemeBorderColor); padding-bottom: 5px;" data-i18n="Other Settings">Other Settings</h6>
+                        <div id="ThemePresetManager_otherSettings" class="settings-grid"></div>
                     </div>
-                    
+
                     <!-- 전체 선택/해제 버튼 -->
                     <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid var(--SmartThemeBorderColor);">
-                        <button id="ThemePresetManager_selectAll" class="menu_button" type="button" style="margin-right: 10px;">전체 선택</button>
-                        <button id="ThemePresetManager_deselectAll" class="menu_button" type="button" style="margin-right: 10px;">전체 해제</button>
-                        <button id="ThemePresetManager_selectDefaultOnly" class="menu_button" type="button" style="margin-right: 10px;">기본옵션만 선택</button>
-                        <!--<button id="ThemePresetManager_resetToDefault" class="menu_button" type="button">기본값으로 초기화</button>-->
+                        <button id="ThemePresetManager_selectAll" class="menu_button" type="button" style="margin-right: 10px;" data-i18n="Select All">Select All</button>
+                        <button id="ThemePresetManager_deselectAll" class="menu_button" type="button" style="margin-right: 10px;" data-i18n="Deselect All">Deselect All</button>
+                        <button id="ThemePresetManager_selectDefaultOnly" class="menu_button" type="button" style="margin-right: 10px;" data-i18n="Select Default Only">Select Default Only</button>
                     </div>
                 </div>
             </div>
 
             <!-- 수동 로드 섹션 -->
             <div class="ThemePresetManager-extension_block">
-                <h4 data-i18n="Manual Load">수동 로드</h4>
+                <h4 data-i18n="Manual Load">Manual Load</h4>
                 <div class="flex-container">
-                    <button id="ThemePresetManager_loadFromChat" class="menu_button" type="button" data-i18n="Load from Chat">채팅에서 로드</button>
-                    <button id="ThemePresetManager_loadFromCharacter" class="menu_button" type="button" data-i18n="Load from Character">캐릭터에서 로드</button>
+                    <button id="ThemePresetManager_loadFromChat" class="menu_button" type="button" data-i18n="Load from Chat">Load from Chat</button>
+                    <button id="ThemePresetManager_loadFromCharacter" class="menu_button" type="button" data-i18n="Load from Character">Load from Character</button>
                 </div>
                 <div style="margin-top: 10px;">
-                    <button id="ThemePresetManager_restoreFromAutoSlot" class="menu_button enabled-button" type="button" data-i18n="Restore from Auto Slot" style="background-color: #ff9800; color: white;">자동 저장 슬롯에서 복원</button>
-                    <button id="ThemePresetManager_overwriteAutoSlot" class="menu_button enabled-button" type="button" style="background-color: #2196f3; color: white; margin-left: 5px;">현재 설정으로 덮어쓰기</button>
-                    <button id="ThemePresetManager_deleteAutoSlot" class="menu_button enabled-button" type="button" style="background-color: #d32f2f; color: white; margin-left: 5px;">자동 저장 슬롯 삭제</button>
+                    <button id="ThemePresetManager_restoreFromAutoSlot" class="menu_button enabled-button" type="button" data-i18n="Restore from Auto Slot" style="background-color: #ff9800; color: white;">Restore from Auto Slot</button>
+                    <button id="ThemePresetManager_overwriteAutoSlot" class="menu_button enabled-button" type="button" style="background-color: #2196f3; color: white; margin-left: 5px;" data-i18n="Overwrite with Current">Overwrite with Current</button>
+                    <button id="ThemePresetManager_deleteAutoSlot" class="menu_button enabled-button" type="button" style="background-color: #d32f2f; color: white; margin-left: 5px;" data-i18n="Delete Auto Slot">Delete Auto Slot</button>
                     <div style="margin-top: 5px; font-size: 0.8em; color: var(--SmartThemeBodyColor); opacity: 0.7;">
-                        💡 자동 저장 슬롯: 테마 변경 직전의 모든 설정을 자동으로 저장합니다. 테마 적용 후 원래 설정으로 되돌리고 싶을 때 사용하세요. (전체선택 사양)
+                        💡 
+                        <span data-i18n="Auto-Save Slot: Automatically saves all settings just before a theme change. Use this to revert to your original settings after applying a theme.">Auto-Save Slot: Automatically saves all settings just before a theme change. Use this to revert to your original settings after applying a theme.</span>
                     </div>
                 </div>
             </div>
@@ -137,16 +128,17 @@
 
             <!-- 설정 삭제 섹션 -->
             <div class="ThemePresetManager-extension_block">
-                <h4 data-i18n="Delete Settings">설정 삭제</h4>
+                <h4 data-i18n="Delete Settings">Delete Settings</h4>
                 <div class="flex-container">
-                    <button id="ThemePresetManager_deleteChat" class="menu_button" type="button" data-i18n="Delete Chat Settings">채팅 설정 삭제</button>
-                    <button id="ThemePresetManager_deleteCharacter" class="menu_button" type="button" data-i18n="Delete Character Settings">캐릭터 설정 삭제</button>
+                    <button id="ThemePresetManager_deleteChat" class="menu_button" type="button" data-i18n="Delete Chat Settings">Delete Chat Settings</button>
+                    <button id="ThemePresetManager_deleteCharacter" class="menu_button" type="button" data-i18n="Delete Character Settings">Delete Character Settings</button>
                 </div>
                 <div style="margin-top: 10px;">
-                    <button id="ThemePresetManager_deleteAll" class="menu_button" type="button" data-i18n="Delete All Settings" style="background-color: #d32f2f; color: white;">모든 설정 삭제</button>
+                    <button id="ThemePresetManager_deleteAll" class="menu_button" type="button" data-i18n="Delete All Settings" style="background-color: #d32f2f; color: white;">Delete All Settings</button>
                 </div>
                 <div style="margin-top: 5px; font-size: 0.8em; color: var(--SmartThemeBodyColor); opacity: 0.7;">
-                    ⚠️ 모든 설정 삭제 시 페이지가 새로고침됩니다. 완전한 초기화를 위해 필요합니다.
+                    ⚠️ 
+                    <span data-i18n="Deleting all settings will reload the page for a complete reset.">Deleting all settings will reload the page for a complete reset.</span>
                 </div>
             </div>
 
@@ -162,25 +154,26 @@
 
             <!-- 내보내기/가져오기 -->
             <div class="ThemePresetManager-extension_block">
-                <h4 data-i18n="Export/Import">내보내기/가져오기</h4>
+                <h4 data-i18n="Export/Import">Export/Import</h4>
                 <div class="flex-container">
-                    <button id="ThemePresetManager_export" class="menu_button" type="button" data-i18n="Export Settings">전체 설정 내보내기</button>
-                    <button id="ThemePresetManager_import" class="menu_button" type="button" data-i18n="Import Settings">전체 설정 가져오기</button>
+                    <button id="ThemePresetManager_export" class="menu_button" type="button" data-i18n="Export All Settings">Export All Settings</button>
+                    <button id="ThemePresetManager_import" class="menu_button" type="button" data-i18n="Import All Settings">Import All Settings</button>
                 </div>
                 <div style="margin-top: 10px;">
-                    <button id="ThemePresetManager_exportCharacter" class="menu_button" type="button" style="background-color: #4CAF50; color: white; margin-right: 5px;">캐릭터 설정 내보내기</button>
-                    <button id="ThemePresetManager_exportChat" class="menu_button" type="button" style="background-color: #4CAF50; color: white; margin-right: 5px;">채팅 설정 내보내기</button>
-                    <button id="ThemePresetManager_importSpecific" class="menu_button" type="button" style="background-color: #2196F3; color: white;">특정 설정 가져오기</button>
+                    <button id="ThemePresetManager_exportCharacter" class="menu_button" type="button" style="background-color: #4CAF50; color: white; margin-right: 5px;" data-i18n="Export Character Settings">Export Character Settings</button>
+                    <button id="ThemePresetManager_exportChat" class="menu_button" type="button" style="background-color: #4CAF50; color: white; margin-right: 5px;" data-i18n="Export Chat Settings">Export Chat Settings</button>
+                    <button id="ThemePresetManager_importSpecific" class="menu_button" type="button" style="background-color: #2196F3; color: white;" data-i18n="Import Specific Settings">Import Specific Settings</button>
                 </div>
                 <div style="margin-top: 5px; font-size: 0.8em; color: var(--SmartThemeBodyColor); opacity: 0.7;">
-                    💡 전체 설정: 모든 확장 설정을 내보내기/가져오기합니다. 특정 설정: 현재 캐릭터/채팅의 테마만 내보내기/가져오기합니다.
+                    💡 
+                    <strong data-i18n="All Settings:">All Settings:</strong>
+                    <span data-i18n="Exports/imports all extension settings.">Exports/imports all extension settings.</span>
+                    <strong data-i18n="Specific Settings:">Specific Settings:</strong>
+                    <span data-i18n="Exports/imports only the theme for the current character/chat.">Exports/imports only the theme for the current character/chat.</span>
                 </div>
             </div>
 
             <hr class="sysHR" />
-
-            <!-- 설정 목록 설명 -->
-            
         </div>
     </div>
 </div>

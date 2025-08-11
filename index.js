@@ -6,6 +6,9 @@ import { saveSettingsDebounced, getCurrentChatId, this_chid, characters, chat_me
 import { t } from '../../../i18n.js';
 import { power_user, applyPowerUserSettings } from "../../../power-user.js";
 import { background_settings } from '../../../backgrounds.js';
+import { SlashCommandParser } from '../../../slash-commands/SlashCommandParser.js';
+import { SlashCommand } from '../../../slash-commands/SlashCommand.js';
+import { ARGUMENT_TYPE, SlashCommandArgument, SlashCommandNamedArgument } from '../../../slash-commands/SlashCommandArgument.js';
 
 // 확장 프로그램 기본 정보
 const extensionName = "ThemePresetManager";
@@ -1019,7 +1022,7 @@ function overwriteAutoSlot() {
 }
 
 // 테마 저장 함수 (기존 extension_settings 방식과 새로운 내부 구조 방식 모두 지원)
-async function saveTheme(type, id) {
+async function saveTheme(type, id, forceOverwrite = false) {
     //console.log('ThemePresetManager: 테마 저장 시작', { type, id });
     
     if (!id) {
@@ -1043,8 +1046,8 @@ async function saveTheme(type, id) {
         }
     }
     
-    // 기존 데이터가 있으면 확인창 표시
-    if (existingData) {
+    // forceOverwrite가 false일 때만 확인창 표시
+    if (existingData && !forceOverwrite) {
         const savedTime = new Date(existingData.timestamp).toLocaleString();
         const confirmMessage = `${type === 'chat' ? '채팅' : '캐릭터'}에 이미 저장된 테마가 있습니다.\n\n저장일시: ${savedTime}\n\n기존 설정을 덮어쓰시겠습니까?`;
         
@@ -3432,3 +3435,65 @@ function onImportSpecificSettings() {
     };
     input.click();
 }
+
+
+
+
+
+// 슬래시 커맨드: 현재 테마를 채팅에 저장
+SlashCommandParser.addCommandObject(SlashCommand.fromProps({
+    name: 'themeSaveChat',
+    callback: async (parsedArgs) => {
+        const forceOverwrite = parsedArgs.force === 'true'; // 인자 파싱
+        const currentChatId = getCurrentChatId();
+
+        if (!currentChatId) {
+            toastr.error('저장할 채팅이 선택되지 않았습니다.');
+            return;
+        }
+
+        const saved = await saveTheme('chat', currentChatId, forceOverwrite); // forceOverwrite 전달
+        if (saved) {
+            toastr.success(`채팅 테마가 ${forceOverwrite ? '강제로 ' : ''}저장되었습니다.`);
+        }
+    },
+    helpString: '현재 UI의 테마 설정을 현재 채팅에 저장합니다.\n사용법: /themeSaveChat [force=true]',
+    namedArgumentList: [
+        SlashCommandNamedArgument.fromProps({
+            name: 'force',
+            description: 'true로 설정 시, 덮어쓰기 확인 없이 강제로 저장합니다.',
+            isRequired: false,
+            typeList: [ARGUMENT_TYPE.BOOLEAN],
+        }),
+    ],
+    returns: ''
+}));
+
+// 슬래시 커맨드: 현재 테마를 캐릭터에 저장
+SlashCommandParser.addCommandObject(SlashCommand.fromProps({
+    name: 'themeSaveChar',
+    callback: async (parsedArgs) => {
+        const forceOverwrite = parsedArgs.force === 'true'; // 인자 파싱
+        const currentCharacterId = getCurrentCharacterId();
+
+        if (!currentCharacterId) {
+            toastr.error('저장할 캐릭터가 선택되지 않았습니다.');
+            return;
+        }
+
+        const saved = await saveTheme('character', currentCharacterId, forceOverwrite); // forceOverwrite 전달
+        if (saved) {
+            toastr.success(`캐릭터 테마가 ${forceOverwrite ? '강제로 ' : ''}저장되었습니다.`);
+        }
+    },
+    helpString: '현재 UI의 테마 설정을 현재 캐릭터에 저장합니다.\n사용법: /themeSaveChar [force=true]',
+    namedArgumentList: [
+        SlashCommandNamedArgument.fromProps({
+            name: 'force',
+            description: 'true로 설정 시, 덮어쓰기 확인 없이 강제로 저장합니다.',
+            isRequired: false,
+            typeList: [ARGUMENT_TYPE.BOOLEAN],
+        }),
+    ],
+    returns: ''
+}));
